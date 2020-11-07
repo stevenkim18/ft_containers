@@ -14,3 +14,7 @@
 - 모든 컨테이너는 양방향 반복자 이상을 제공함
 
 출처:https://hyeonstorage.tistory.com/318
+
+# 할당자
+## vector에 커스텀 할당자 만들기
+https://www.youtube.com/watch?v=v-qePUHf8iU&ab_channel=CodesBay
