@@ -23,3 +23,7 @@
 # 할당자(allocator)
 ## 할당자의 개념
 - https://woo-dev.tistory.com/51
+
+## vector에 커스텀 할당자 만들기
+- https://www.youtube.com/watch?v=v-qePUHf8iU&ab_channel=CodesBay
+
