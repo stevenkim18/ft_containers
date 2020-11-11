@@ -14,3 +14,12 @@
 - 모든 컨테이너는 양방향 반복자 이상을 제공함
 
 출처:https://hyeonstorage.tistory.com/318
+
+## 반복자 자료들
+- http://www.cplusplus.com/reference/iterator/
+### 반복자의 종류들이 잘 설명되어 있음
+- https://mayple.tistory.com/entry/CSTL2%EC%9E%A5-%EB%B0%98%EB%B3%B5%EC%9E%90iterator
+
+# 할당자(allocator)
+## 할당자의 개념
+- https://woo-dev.tistory.com/51
