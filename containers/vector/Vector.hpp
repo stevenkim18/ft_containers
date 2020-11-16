@@ -55,6 +55,7 @@ namespace ft
 			size_type capacity() const { return (_capacity); }
 
 			// empty
+			bool empty() const { return (_length == 0);}
 
 			// reserve
 			void reserve(size_type n)
@@ -79,33 +80,41 @@ namespace ft
 			{
 				if (n < 0 || n >= _length)
 					throw std::out_of_range("out_of_range: vector");
-				return _arr[n];
+				return (_arr[n]);
 			}
 
 			const_reference at(size_type n) const
 			{
 				if (n < 0 || n >= _length)
 					throw std::out_of_range("out_of_range: vector");
-				return _arr[n];
+				return (_arr[n]);
 			}
 
 			// front
+			reference front() { return (_arr[0]);}
+			const_reference front() const { return (_arr[0]);}
 
 			// back
-
+			reference back() { return (_arr[_length - 1]);}
+			const_reference back() const { return (_arr[_length - 1]);}
 			// assign
 
 			// push_back
-			void push_back(const value_type &value)
+			void push_back(const value_type &val)
 			{
 				if (_capacity == 0)
 					reserve(1);
 				else if (_length >= _capacity)
 					reserve(_capacity * 2);
-				_arr[_length] = value;
+				_arr[_length] = val;
 				_length++;
 			}
 			// pop_back
+			void pop_back()
+			{
+				if (_length != 0)
+					_length--;
+			}
 
 			// insert
 

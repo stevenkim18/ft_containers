@@ -59,6 +59,7 @@ int main(void)
 
 	std::cout << "=============== push_back ===============" << std::endl;
 
+	// 1~8까지 vector에 추가
 	for (int i = 1; i < 9; i++)
 	{
 		ori_v.push_back(i);
@@ -75,6 +76,7 @@ int main(void)
 	print_origin_my_fun("size()", ori_v.size(), my_v.size());
 	print_origin_my_fun("capacity()", ori_v.capacity(), my_v.capacity());
 
+	// 9 10 추가
 	for (int i = 9; i < 11; i++)
 	{
 		ori_v.push_back(i);
@@ -83,8 +85,10 @@ int main(void)
 	print_origin_my_fun("size()", ori_v.size(), my_v.size());
 	print_origin_my_fun("capacity()", ori_v.capacity(), my_v.capacity());
 
+	// 두 vector 원소들 출력
 	print_both_vector(ori_v, my_v);
 
+	// at 오버플로우 되었을 때 예외처리
 	std::cout << "--------------- at ---------------" << std::endl;
 	std::cout << "ori at() = ";
 	try
@@ -99,4 +103,10 @@ int main(void)
 	{ std::cout << "out of range!" << std::endl; }
 	std::cout << RESET;
 
+	while (!my_v.empty())
+	{
+		my_v.pop_back();
+		std::cout << "size = " << my_v.size() << " cap = " << my_v.capacity() << std::endl;
+	}
+	my_v.pop_back();
 }
