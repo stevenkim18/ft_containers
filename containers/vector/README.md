@@ -11,5 +11,18 @@
 
 ## pop_back()
 - 마지막 원소를 제거
-- vector가 비어 있을 때 undefined behaviour   
+- vector가 비어 있을 때 undefined behaviour
 https://www.geeksforgeeks.org/vectorpush_back-vectorpop_back-c-stl/
+
+
+# iterator
+## ++a, a++
+- 일반 변수의 전위 후위 연산자 처럼 작동
+~~~c
+// 대입 먼저
+b = a++ -> b = a -> a += 1
+
+// 증가 먼저
+b = ++a -> a += 1 -> b = a
+~~~
+- 그래서 후위 연산자에서는 복사 생성자로 만든 새로운은 iterator를 리턴 함

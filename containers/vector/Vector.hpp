@@ -41,6 +41,7 @@ namespace ft
 			~Vector() { _allocator.deallocate(_arr, _capacity); }
 			// operator=
 			// begin
+			iterator begin() { return (iterator(_arr)); }
 			// end
 			// rbegin
 			// rend

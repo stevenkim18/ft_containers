@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 16:30:12 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/11 18:58:17 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/17 23:15:08 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,63 @@ namespace ft
 				return (*this);
 			}
 			~VectorIterator() {};										// 소멸자
+
+			// ++a
+			VectorIterator &operator++() { _ptr++; return (*this); }
+			// a++
+			VectorIterator operator++(int)
+			{
+				VectorIterator tmp(*this);
+				operator++();
+				return (tmp);
+			}
+			// a == b
+			bool operator==(const VectorIterator &ref) const { return (_ptr == ref._ptr); }
+			// a != b
+			bool operator!=(const VectorIterator &ref) const { return (_ptr != ref._ptr); }
+			// *a
+			value_type &operator*()	{ return (*_ptr); }
+			// a->m
+			value_type *operator->() { return (_ptr); }
+			// *a = t
+			// *a++ = t
+			// --a
+			VectorIterator &operator--() { _ptr--; return (*this); }
+			// a--
+			VectorIterator operator--(int)
+			{
+				VectorIterator tmp(*this);
+				operator--();
+				return (tmp);
+			}
+			// a + n, n + a
+			VectorIterator operator+(int n) const
+			{
+				VectorIterator tmp(*this);
+				tmp._ptr += n;
+				return (tmp);
+			}
+			// a - n, a - b
+			VectorIterator operator-(int n) const
+			{
+				VectorIterator tmp(*this);
+				tmp._ptr -= n;
+				return (tmp);
+			}
+
+			// a < b
+
+			// a > b
+
+			// a <= b
+
+			// a >= b
+
+			// a += n
+
+			// a -= n
+
+
 	};
 };
 
