@@ -27,15 +27,18 @@ namespace ft
 			allocator_type					_allocator;
 
 		public:
-			// 기본 생성자
+			// defalut constructor
 			explicit Vector(const allocator_type &allocator = allocator_type())
 				: _arr(nullptr), _length(0), _capacity(0), _allocator(allocator)
 			{
-				std::cout << "defalut constructor call" << std::endl;
 				_arr = _allocator.allocate(0);
 			};
+			// fill constructor
+			// range constructor
+			// copy constructor
 
-			// 소멸자
+			// destructor
+			~Vector() { _allocator.deallocate(_arr, _capacity); }
 			// operator=
 			// begin
 			// end
@@ -50,6 +53,13 @@ namespace ft
 			}
 
 			// resize
+			void resize (size_type n, value_type val = value_type())
+			{
+				while (n > _length)
+					push_back(val);
+				while (n < _length)
+					pop_back();
+			}
 
 			// capacity
 			size_type capacity() const { return (_capacity); }

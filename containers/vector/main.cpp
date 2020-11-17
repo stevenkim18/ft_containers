@@ -16,23 +16,26 @@ void print_all_origin_vector_element(std::vector<T> v)
 }
 
 template <typename T>
-void print_all_my_vector_element(ft::Vector<T> v)
+void print_all_my_vector_element(ft::Vector<T> &v)
 {
 	typedef typename ft::Vector<T>::size_type type;
 	std::cout << "[ ";
 	for (type i = 0; i < v.size(); i++)
 		std::cout << v[i] << " ";
 	std::cout << "]" << std::endl;
+	std::cout << "4444444" << std::endl;
 }
 
 template <typename T>
-void print_both_vector(std::vector<T> ori_v, ft::Vector<T> my_v)
-{
+void print_both_vector(std::vector<T> ori_v, ft::Vector<T> &my_v)	// 와 인자로 그냥 my_v 넘기니 소멸자가 2번 호출 됨...
+{																	// 그래서 &my_v로 바꿈. 레퍼런스로 넘겨주어야 함.
 	std::cout << "ori : ";
 	print_all_origin_vector_element(ori_v);
 	std::cout << RED << " my : ";
 	print_all_my_vector_element(my_v);
+	std::cout << "22222" << std::endl;
 	std::cout << RESET;
+	std::cout << "333333" << std::endl;
 }
 
 template <typename T>
@@ -69,7 +72,7 @@ int main(void)
 	}
 
 	print_both_vector(ori_v, my_v);
-
+	std::cout << "11111" << std::endl;
 	std::cout << "--------------- reserve ---------------" << std::endl;
 	ori_v.reserve(9);
 	my_v.reserve(9);
@@ -103,10 +106,7 @@ int main(void)
 	{ std::cout << "out of range!" << std::endl; }
 	std::cout << RESET;
 
-	while (!my_v.empty())
-	{
-		my_v.pop_back();
-		std::cout << "size = " << my_v.size() << " cap = " << my_v.capacity() << std::endl;
-	}
-	my_v.pop_back();
+	// pop_back
+	std::cout << "--------------- pop_back ---------------" << std::endl;
+
 }
