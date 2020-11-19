@@ -191,7 +191,70 @@ int main(void)
 	print_origin_my_fun("+3", *ori_iter, *my_iter);
 
 	std::cout << "--------------- - ---------------" << std::endl;
-	ori_iter = ori_iter - 10;
-	my_iter = my_iter - 10;
+	ori_iter = ori_iter - 3;
+	my_iter = my_iter - 3;
 	print_origin_my_fun("-1", *ori_iter, *my_iter);
+
+	std::cout << "--------------- < > <= >= ---------------" << std::endl;
+	std::cout << std::boolalpha;
+	print_origin_my_fun("<", ori_iter < ori_tmp, my_iter < my_tmp);
+	print_origin_my_fun(">", ori_iter > ori_tmp, my_iter > my_tmp);
+	print_origin_my_fun("<=", ori_iter <= ori_tmp, my_iter <= my_tmp);
+	print_origin_my_fun(">=", ori_iter >= ori_tmp, my_iter >= my_tmp);
+	std::cout << std::noboolalpha;
+
+	std::cout << "--------------- += -= ---------------" << std::endl;
+	ori_iter += 4;
+	my_iter += 4;
+	print_origin_my_fun("+= 4", *ori_iter, *my_iter);
+
+	ori_iter -= 2;
+	my_iter -= 2;
+	print_origin_my_fun("-= 2", *ori_iter, *my_iter);
+
+	std::cout << "--------------- [] ---------------" << std::endl;
+	print_origin_my_fun("[0]", ori_iter[0], my_iter[0]);
+	print_origin_my_fun("[1]", ori_iter[1], my_iter[1]);
+
+	std::cout << "=============== reverse_iterator ===============" << std::endl;
+	std::vector<int>::reverse_iterator ori_riter = ori_v.rbegin();
+	ft::Vector<int>::reverse_iterator my_riter = my_v.rbegin();
+
+	print_origin_my_fun("_riter", *ori_riter, *my_riter);
+
+	std::cout << "--------------- ++ ---------------" << std::endl;
+	ori_riter++;
+	my_riter++;
+
+	print_origin_my_fun("_riter", *ori_riter, *my_riter);
+
+	std::cout << "--------------- -- ---------------" << std::endl;
+	ori_riter--;
+	my_riter--;
+
+	print_origin_my_fun("_riter", *ori_riter, *my_riter);
+
+	std::cout << "--------------- += ---------------" << std::endl;
+	ori_riter += 5;
+	my_riter += 5;
+
+	print_origin_my_fun("_riter", *ori_riter, *my_riter);
+
+	std::cout << "--------------- -= ---------------" << std::endl;
+	ori_riter -= 1;
+	my_riter -= 1;
+
+	print_origin_my_fun("_riter", *ori_riter, *my_riter);
+
+	std::cout << "--------------- [] ---------------" << std::endl;
+	print_origin_my_fun("[1]", ori_riter[1], my_riter[1]);
+
+	std::vector<int>::reverse_iterator ori_rtmp = ori_v.rbegin() + 3;
+	ft::Vector<int>::reverse_iterator my_rtmp = my_v.rbegin() + 3;
+
+	std::cout << *ori_riter << " " << *ori_rtmp << std::endl;
+	std::cout << *my_riter << " " << *my_rtmp << std::endl;
+
+	std::cout << (ori_riter > ori_rtmp) << std::endl;
+	std::cout << (my_riter > my_rtmp) << std::endl;
 }

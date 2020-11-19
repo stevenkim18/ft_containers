@@ -12,13 +12,14 @@ namespace ft
 	class Vector
 	{
 		public:
-			typedef T						value_type;
-			typedef A						allocator_type;
-			typedef T&						reference;
-			typedef const T&				const_reference;
-			typedef T*						pointer;
-			typedef ft::VectorIterator<T>	iterator;
-			typedef size_t					size_type;
+			typedef T								value_type;
+			typedef A								allocator_type;
+			typedef T&								reference;
+			typedef const T&						const_reference;
+			typedef T*								pointer;
+			typedef ft::VectorIterator<T>			iterator;
+			typedef ft::ReverseVectorIterator<T> 	reverse_iterator;
+			typedef size_t							size_type;
 
 		private:
 			pointer							_arr;
@@ -44,6 +45,7 @@ namespace ft
 			iterator begin() { return (iterator(_arr)); }
 			// end
 			// rbegin
+			reverse_iterator rbegin() { return (reverse_iterator(_arr + _length - 1)); }
 			// rend
 
 			size_type size() const { return (_length); }

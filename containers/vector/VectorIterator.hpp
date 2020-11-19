@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 16:30:12 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/17 23:15:08 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/19 17:25:01 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ namespace ft
 				return (*this);
 			}
 			~VectorIterator() {};										// 소멸자
-
 			// ++a
 			VectorIterator &operator++() { _ptr++; return (*this); }
 			// a++
@@ -56,8 +55,6 @@ namespace ft
 			value_type &operator*()	{ return (*_ptr); }
 			// a->m
 			value_type *operator->() { return (_ptr); }
-			// *a = t
-			// *a++ = t
 			// --a
 			VectorIterator &operator--() { _ptr--; return (*this); }
 			// a--
@@ -81,20 +78,99 @@ namespace ft
 				tmp._ptr -= n;
 				return (tmp);
 			}
-
 			// a < b
-
+			bool operator<(const VectorIterator &ref) const
+			{
+				std::cout << _ptr << "  " << ref._ptr << std::endl;
+				return (_ptr < ref._ptr);
+			}
 			// a > b
-
+			bool operator>(const VectorIterator &ref) const { return (_ptr > ref._ptr); }
 			// a <= b
-
+			bool operator<=(const VectorIterator &ref) const { return (_ptr <= ref._ptr); }
 			// a >= b
-
+			bool operator>=(const VectorIterator &ref) const { return (_ptr >= ref._ptr); }
 			// a += n
-
+			VectorIterator &operator+=(int n)
+			{
+				_ptr += n;
+				return (*this);
+			}
 			// a -= n
+			VectorIterator &operator-=(int n)
+			{
+				_ptr -= n;
+				return (*this);
+			}
+			// []
+			value_type &operator[] (int n) { return (*(*this + n)); }
+	};
+	template<typename T>
+	class ReverseVectorIterator : public VectorIterator<T>
+	{
+		public:
+			typedef T	value_type;
+			typedef T&	references;
+			typedef T*	pointer;
 
-
+			ReverseVectorIterator() {};
+			ReverseVectorIterator(pointer ptr) { this->_ptr = ptr; }
+			ReverseVectorIterator(const ReverseVectorIterator &ref) { *this = ref; }
+			ReverseVectorIterator operator+(int n) const
+			{
+				ReverseVectorIterator tmp(*this);
+				tmp._ptr -= n;
+				return (tmp);
+			}
+			ReverseVectorIterator operator-(int n) const
+			{
+				ReverseVectorIterator tmp(*this);
+				tmp._ptr += n;
+				return (tmp);
+			}
+			ReverseVectorIterator &operator=(const ReverseVectorIterator &ref)
+			{
+				this->_ptr = ref._ptr;
+				return (*this);
+			}
+			ReverseVectorIterator &operator++(void)
+			{
+				this->_ptr--;
+				return (*this);
+			};
+			ReverseVectorIterator operator++(int)
+			{
+				ReverseVectorIterator tmp(*this);
+				this->_ptr--;
+				return (tmp);
+			};
+			ReverseVectorIterator &operator--(void)
+			{
+				this->_ptr++;
+				return (*this);
+			};
+			ReverseVectorIterator operator--(int)
+			{
+				ReverseVectorIterator tmp(*this);
+				this->_ptr++;
+				return (tmp);
+			};
+			ReverseVectorIterator &operator+=(int n)
+			{
+				this->_ptr -= n;
+				return (*this);
+			}
+			ReverseVectorIterator &operator-=(int n)
+			{
+				this->_ptr += n;
+				return (*this);
+			}
+			// 여기 이상함
+			value_type &operator[](int n) const
+			{
+				std::cout << *this->_ptr << std::endl;
+				return (*(*this + n));
+			}
 	};
 };
 
