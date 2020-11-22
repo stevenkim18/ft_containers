@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 16:30:12 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/19 17:25:01 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/22 22:46:06 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,7 @@ namespace ft
 				return (tmp);
 			}
 			// a < b
-			bool operator<(const VectorIterator &ref) const
-			{
-				std::cout << _ptr << "  " << ref._ptr << std::endl;
-				return (_ptr < ref._ptr);
-			}
+			bool operator<(const VectorIterator &ref) const { return (_ptr < ref._ptr); }
 			// a > b
 			bool operator>(const VectorIterator &ref) const { return (_ptr > ref._ptr); }
 			// a <= b
@@ -165,12 +161,16 @@ namespace ft
 				this->_ptr += n;
 				return (*this);
 			}
+			// a < b
+			bool operator<(const ReverseVectorIterator &ref) const { return (this->_ptr > ref._ptr); }
+			// a > b
+			bool operator>(const ReverseVectorIterator &ref) const { return (this->_ptr < ref._ptr); }
+			// a <= b
+			bool operator<=(const ReverseVectorIterator &ref) const { return (this->_ptr >= ref._ptr); }
+			// a >= b
+			bool operator>=(const ReverseVectorIterator &ref) const { return (this->_ptr <= ref._ptr); }
 			// 여기 이상함
-			value_type &operator[](int n) const
-			{
-				std::cout << *this->_ptr << std::endl;
-				return (*(*this + n));
-			}
+			value_type &operator[](int n) const { return (*(*this + n)); }
 	};
 };
 
