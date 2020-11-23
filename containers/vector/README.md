@@ -26,3 +26,9 @@ b = a++ -> b = a -> a += 1
 b = ++a -> a += 1 -> b = a
 ~~~
 - 그래서 후위 연산자에서는 복사 생성자로 만든 새로운은 iterator를 리턴 함
+
+## const와 non const iterator의 차이
+- const는 iterator가 가르키는 값을 변경 할 수 없습니다.
+~~~c++
+*const_iter = 1; (X)
+~~~
