@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 06:20:16 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/24 08:13:44 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/24 08:43:39 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,44 @@ namespace ft
 				erase(begin(), end());
 			}
 	};
+	template <class T, class Alloc>
+	bool operator==(const Vector<T, Alloc> &a, const Vector<T, Alloc> &b)
+	{
+		if (a.size() != b.size())
+			return (false);
+		for (size_t i = 0; i < a.size(); i++)
+		{
+			if (a[i] != b[i])
+				return (false);
+		}
+		return (true);
+	};
+	template <class T, class Alloc>
+	bool operator!=(const Vector<T, Alloc> &a, const Vector<T, Alloc> &b) { return (!(a == b)) };
+	template <class T, class Alloc>
+	bool operator<(const Vector<T, Alloc> &a, const Vector<T, Alloc> &b)
+	{
+		size_t			n;
+
+		if (a.size() > b.size())
+			n = b.size();
+		else
+			n = a.size();
+		for (size_t i = 0; i < n; i++)
+		{
+			if (a.at(i) != b.at(i))
+				return (a.at(i) < b.at(i));
+		}
+		return (a.size() < b.size());
+	};
+	template <class T, class Alloc>
+	bool operator<=(const Vector<T,Alloc> &a, const Vector<T,Alloc> &b) { return (a < b || a == b); };
+	template <class T, class Alloc>
+	bool operator>(const Vector<T,Alloc> &a, const Vector<T,Alloc> &b) { return (!(a < b) && !(a == b)) };
+	template <class T, class Alloc>
+	bool operator>=(const Vector<T,Alloc> &a, const Vector<T,Alloc> &b) { return (!(a < b)); };
+	template <class T, class Alloc>
+	void swap(Vector<T, Alloc> &x, Vector<T, Alloc> &y) { x.swap(y); };
 };
 
 #endif
