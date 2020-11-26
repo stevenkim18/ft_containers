@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 13:59:43 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/26 00:08:21 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/26 15:35:06 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIST_HPP
 
 # include <memory>
+# include <limits>              // for maxsize()
 # include "ListIterator.hpp"
 # include "../utils.hpp"
 
@@ -31,7 +32,7 @@ namespace ft
             typedef const T*                    const_pointer;
             typedef ft::ListIterator<T>         iterator;
             // typedef ConstListIterator           const_iterator;
-            // typedef ReverseListIterator         reverse_iterator;
+            typedef ft::ReverseListIterator<T>  reverse_iterator;
             // typedef ConstReverseListIterator    const_reverse_iterator;
             typedef size_t                      size_type;
         
@@ -49,36 +50,42 @@ namespace ft
                 node->next = next;
                 return (node);
             }
+            void                _init_list()
+            {
+                _first = _make_new_node(nullptr, value_type(), nullptr);
+                _last = _make_new_node(_first, value_type(), nullptr);
+                _first->next = _last;
+            }
         
         public:
             explicit List(const allocator_type& alloc = allocator_type())
                 : _length(0)
             {
                 (void)alloc;
-                _last = _make_new_node(nullptr, value_type(), nullptr);
-                _last->prev = _last;
-                _first = _last;
+                _init_list();
             }
             // fill constructor
             // range constructor
             // copy constructor
             // destructor
+            ~List() { delete _first; delete _last; }
             // operator=
             
             // begin
-            iterator begin() { return (iterator(_first)); }
+            iterator begin() { return (iterator(_first->next)); }
             // end
-            iterator end() { return (iterator(_last->prev)); }
+            iterator end() { return (iterator(_last)); }
             // rbegin
+            reverse_iterator rbegin() { return (reverse_iterator(_last->prev)); }
             // rend
-            
+            reverse_iterator rend() { return (reverse_iterator(_first)); }
             // empty
             // size
             size_type size() const { return (_length); }
             // max_size
-
+            size_type max_size() const { return (std::numeric_limits<size_type>::max() / (sizeof(Node<T>))); }
             // front
-            reference front() { return (_first->data); }
+            reference front() { return (_first->next->data); }
             // back
             reference back() { return (_last->prev->data); }
             // assign
@@ -90,11 +97,8 @@ namespace ft
                 Node<T>* new_node = _make_new_node(_last->prev, val, _last);
                 _last->prev->next = new_node;
                 _last->prev = new_node;
-                if (_length == 0)               // 맨 처음 노드의 prev는 nullptr이어야 함.
-                {
-                    _first = new_node;
-                    new_node->prev = nullptr;
-                }
+                _last->data = _last->prev->data;    // end를 위해서!
+                _first->data = _last->data;         // rend  
                 _length++;
             }
             // pop_back
@@ -102,14 +106,16 @@ namespace ft
             {
                 Node<T>* before = _last->prev->prev;
                 delete _last->prev;
-                if (before == nullptr)  // 지운 후에 List에 원소가 한개도 없을 때
-                {
-                    before = _last;
-                    _first = _last;
-                }
                 before->next = _last;
                 _last->prev = before;
+                _last->data = _last->prev->data;
+                _first->data = _last->data; 
                 _length--;
+                if (_length == 0)
+                {
+                    _first->data = value_type();
+                    _last->data = value_type();
+                }
             }
             // insert
             // erase
