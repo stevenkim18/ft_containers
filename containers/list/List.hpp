@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 13:59:43 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/26 17:06:54 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/26 17:51:18 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ namespace ft
             // rend
             reverse_iterator rend() { return (reverse_iterator(_first)); }
             // empty
+            bool empty() const { return (_length == 0); }
             // size
             size_type size() const { return (_length); }
             // max_size
@@ -146,6 +147,42 @@ namespace ft
                 _set_first_last_node();
             }
             // insert
+            iterator    insert(iterator position, const value_type& val)
+            {
+                if (position == begin())
+                {
+                    push_front(val);
+                    return (begin());
+                }
+                else if (position == end())
+                {
+                    push_back(val);
+                    return (end());
+                }
+                Node<T>* after = position.getNode();
+                Node<T>* before = after->prev;
+                Node<T>* inserted_node = _make_new_node(before, val, after);
+                before->next = inserted_node;
+                after->prev = inserted_node;
+                _length++;
+                return (iterator(inserted_node));
+            }
+            void        insert(iterator position, size_type n, const value_type& val)
+            {
+                while (n--)
+                    position = insert(position, val);
+            }
+            template <class InputIterator>
+            void        insert(iterator position, InputIterator first, InputIterator last)
+            {
+                while (first != last)
+                {
+                    position = insert(position, *first);
+                    first++;
+                    if (position != end())
+                        position++;
+                }
+            }
             // erase
             // swap
             // resize

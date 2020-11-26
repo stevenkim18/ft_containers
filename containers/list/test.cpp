@@ -6,6 +6,22 @@
 # define GREEN "\033[1;32m"
 # define RESET "\033[0m"
 
+void    oneline(std::string const &title)
+{
+    std::cout << std::endl;
+    std::cout << "-------------------- ";
+    std::cout << title;
+    std::cout << " -------------------- " << std::endl;
+}
+
+void    twoline(std::string const &title)
+{
+    std::cout << std::endl;
+    std::cout << "==================== ";
+    std::cout << title;
+    std::cout << " ==================== " << std::endl;
+}
+
 template <typename T>
 void    print_ori_my_value(std::string const &str, T ori, T my)
 {
@@ -146,5 +162,32 @@ int main(void)
     // print_ori_my_value("*end()", *ool.end(), *mml.end());
     // print_ori_my_value("*rbegin()", *ool.rbegin(), *mml.rbegin());
     // print_ori_my_value("*rend()", *ool.rend(), *mml.rend());
+
+    ol.push_back(1); ol.push_back(2);
+    ml.push_back(1), ml.push_back(2);
+
+    print_all_element(ol, ml);
+
+    std::list<int>::iterator oit = ol.insert(ol.begin(), 10);
+    ft::List<int>::iterator mit = ml.insert(ml.begin(), 10);
+
+    oneline("insert to begin");
+
+    print_all_element(ol, ml);
+    print_ori_my_value("insert begin", *oit, *mit);
+
+    oneline("insert to end");
+
+    oit = ol.insert(ol.end(), 1000);
+    mit = ml.insert(ml.end(), 1000);
+    print_all_element(ol, ml);
+    print_ori_my_value("insert end", *oit, *mit);
+
+    oneline("insert to begin + 1");
+
+    oit = ol.insert(++ol.begin(), 9999);
+    mit = ml.insert(++ml.begin(), 9999);
+    print_all_element(ol, ml);
+    print_ori_my_value("insert ++begin", *oit, *mit);
     
 }

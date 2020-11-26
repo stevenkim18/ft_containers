@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 17:47:24 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/26 15:21:55 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/26 18:19:50 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ namespace ft
             ListIterator(const ListIterator &ref) { *this = ref; }
             ListIterator &operator=(const ListIterator &ref) { _ptr = ref._ptr; return (*this); }
             ~ListIterator() {}
+
+            pointer getNode() const { return (_ptr); }      // for insert
             
             // ==
             bool operator==(const ListIterator &ref) const { return (_ptr == ref._ptr); } 
@@ -43,7 +45,7 @@ namespace ft
             value_type &operator*() { return (_ptr->data); };
             // ->
             // ++
-            ListIterator &operator++() { _ptr = _ptr->next; return (*this); }
+            ListIterator &operator++() { _ptr = _ptr->next; return (*this); }   // ++a
             // --
         
     };
