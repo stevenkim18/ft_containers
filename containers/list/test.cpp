@@ -43,8 +43,8 @@ int main(void)
 
     std::cout << "-------------------------------------------" << std::endl;
 
-    ol.push_back(1);
-    ml.push_back(1);
+    ol.push_back(100);
+    ml.push_back(100);
 
     print_ori_my_value("size", ol.size(), ml.size());
     print_ori_my_value("front", ol.front(), ml.front());
@@ -115,5 +115,36 @@ int main(void)
     std::cout << "-------------------------------------------" << std::endl;
 
     print_ori_my_value("max_size", ol.max_size(), ml.max_size());
+
+    std::cout << "-------------------------------------------" << std::endl;
+
+    ol.push_front(3);
+    ml.push_front(3);
+    print_ori_my_value("size", ol.size(), ml.size());
+    print_ori_my_value("*begin()", *ol.begin(), *ml.begin());
+    print_ori_my_value("*end()", *ol.end(), *ml.end());
+    print_ori_my_value("*rbegin()", *ol.rbegin(), *ml.rbegin());
+    print_ori_my_value("*rend()", *ol.rend(), *ml.rend());
+
+    std::cout << "==============================================" << std::endl;
+    // std::list<std::string> ool;
+    // ft::List<std::string> mml;
+
+    // print_ori_my_value("size", ool.size(), mml.size());
+    // print_ori_my_value("*begin()", *ool.begin(), *mml.begin());
+    // print_ori_my_value("*end()", *ool.end(), *mml.end());
+    // print_ori_my_value("*rbegin()", *ool.rbegin(), *mml.rbegin());
+    // print_ori_my_value("*rend()", *ool.rend(), *mml.rend());
+
+    // std::cout << "-----------------------------------------------" << std::endl;
+
+    // ool.push_back("11"); ool.push_back("22"); ool.push_back("33");
+    // mml.push_back("11"); mml.push_back("22"); mml.push_back("33");
+    // print_ori_my_value("size", ool.size(), mml.size());
+    // print_ori_my_value("*begin()", *ool.begin(), *mml.begin());
+    // // std::cout << "end = " << *ool.end() << std::endl;
+    // print_ori_my_value("*end()", *ool.end(), *mml.end());
+    // print_ori_my_value("*rbegin()", *ool.rbegin(), *mml.rbegin());
+    // print_ori_my_value("*rend()", *ool.rend(), *mml.rend());
     
 }

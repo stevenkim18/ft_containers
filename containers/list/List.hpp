@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 13:59:43 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/26 15:35:06 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/26 17:06:54 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,24 @@ namespace ft
                 _last = _make_new_node(_first, value_type(), nullptr);
                 _first->next = _last;
             }
+            void                _set_first_last_node()
+            {
+                if (_length == 0)
+                {
+                     _first->data = value_type();
+                    _last->data = value_type();
+                }
+                else if (_length == 1)                  // 이해 할 수 없음..
+                {
+                    _last->data = 1;
+                    _first->data = _last->data;        
+                }
+                else
+                {
+                    _last->data = _last->prev->data;    // end를 위해서!
+                    _first->data = _last->data;         // rend
+                }
+            }
         
         public:
             explicit List(const allocator_type& alloc = allocator_type())
@@ -90,16 +108,32 @@ namespace ft
             reference back() { return (_last->prev->data); }
             // assign
             // push_front
+            void    push_front(const value_type& val)
+            {
+                Node<T>* new_node = _make_new_node(_first, val, _first->next);
+                _first->next->prev = new_node;
+                _first->next = new_node;
+                _length++;
+                _set_first_last_node();
+            }
             // pop_front
+            void    pop_front()
+            {
+                Node<T>* after = _first->next->next;
+                delete _first->next;
+                after->prev = _first;
+                _first->next = after;
+                _length--;
+                 _set_first_last_node();
+            }
             // push_back
             void    push_back(const value_type& val)
             {
                 Node<T>* new_node = _make_new_node(_last->prev, val, _last);
                 _last->prev->next = new_node;
                 _last->prev = new_node;
-                _last->data = _last->prev->data;    // end를 위해서!
-                _first->data = _last->data;         // rend  
                 _length++;
+                _set_first_last_node();
             }
             // pop_back
             void    pop_back()
@@ -108,14 +142,8 @@ namespace ft
                 delete _last->prev;
                 before->next = _last;
                 _last->prev = before;
-                _last->data = _last->prev->data;
-                _first->data = _last->data; 
                 _length--;
-                if (_length == 0)
-                {
-                    _first->data = value_type();
-                    _last->data = value_type();
-                }
+                _set_first_last_node();
             }
             // insert
             // erase
