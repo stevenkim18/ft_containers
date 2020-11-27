@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 13:59:43 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/28 01:30:03 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/28 02:31:32 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ namespace ft
                     _first->data = _last->data;         // rend
                 }
             }
-        
+            template <typename N>                       // for unique void
+            bool                _eqaul(const N& a, const N& b)  { return (a == b); }
+            
         public:
             explicit List(const allocator_type& alloc = allocator_type())
                 : _length(0)
@@ -286,6 +288,26 @@ namespace ft
                 }
             }
             // unique
+            void        unique()
+            {
+                unique(this->_eqaul);
+            }
+            template <class BinaryPredicate>
+            void        unique(BinaryPredicate binary_pred)
+            {
+                iterator iter = begin();
+                iterator next_iter = ++begin();
+                while (iter != --end())
+                {
+                    if (binary_pred(*iter, *next_iter))
+                        next_iter = erase(next_iter);
+                    else
+                    {
+                        iter = next_iter;
+                        next_iter++;
+                    }
+                }
+            }
             // merge
             // sort
             // reverse

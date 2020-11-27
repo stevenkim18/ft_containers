@@ -43,7 +43,11 @@ void    print_all_element(std::list<T> &ol, ft::List<T> &ml)
     std::cout << "]" << RESET << std::endl;
 }
 
+// for remove if
 bool    over_100(const int& val) { return (val >= 100); }
+// for unique
+bool    eqaul(const int& a, const int& b) { return (a == b); }
+bool    diff_by_1(const int& a, const int& b) { return (a - b == -1); }
 
 int main(void)
 {
@@ -319,5 +323,28 @@ int main(void)
     m2l.remove_if(over_100);
 
     print_all_element(o2l, m2l);
-    
+
+    twoline("unique");
+
+    ol.push_back(1); ml.push_back(1);
+    ol.push_back(2); ml.push_back(2);
+    ol.push_back(2); ml.push_back(2);
+    ol.push_back(3); ml.push_back(3);
+    ol.push_back(4); ml.push_back(4);
+    ol.push_back(4); ml.push_back(4);
+    ol.push_back(6); ml.push_back(6);
+
+    print_all_element(ol, ml);
+
+    oneline("unique void(equal)");
+    ol.unique(eqaul);
+    ml.unique(eqaul);
+
+    print_all_element(ol, ml);
+
+    oneline("unique fun(diff by 1)");
+    ol.unique(diff_by_1);
+    ml.unique(diff_by_1);
+
+    print_all_element(ol, ml);
 }
