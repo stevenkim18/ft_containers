@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 13:59:43 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/26 17:51:18 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/28 01:30:03 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,17 +180,111 @@ namespace ft
                     position = insert(position, *first);
                     first++;
                     if (position != end())
-                        position++;
+                        ++position;
                 }
             }
             // erase
+            iterator    erase(iterator position)
+            {
+                if (position == begin())
+                {
+                    pop_front();
+                    return (begin());
+                }
+                else if (position == end())
+                {
+                    pop_back();
+                    return (end());
+                }
+                Node<T>* before = position.getNode()->prev;
+                Node<T>* after = position.getNode()->next;
+                delete position.getNode();
+                before->next = after;
+                after->prev = before;
+                _length--;
+                _set_first_last_node();             // 안해주면 insert(begin, end) 했을 떄 이상 한 값 나옴
+                return (iterator(after));
+            }
+            iterator    erase(iterator first, iterator last)
+            {
+                while (first != last)
+                {
+                    erase(first);
+                    first++;
+                }
+                return (first);
+            }
             // swap
+            void        swap(List &x)
+            {
+                ft::swap(x._length, _length);
+                ft::swap(x._first, _first);
+                ft::swap(x._last, _last);
+            }
             // resize
+            void        resize(size_type n, value_type val = value_type())
+            {
+                while (_length > n)
+                    pop_back();
+                while (_length < n)
+                    push_back(val);
+            }
             // clear
+            void        clear()
+            {
+                Node<T>* node = _first->next;
+                while (node != _last)
+                {
+                    Node<T>* next = node->next;
+                    delete node;
+                    node = next;
+                }
+                _first->next = _last;
+                _last->prev = _first;
+                _length = 0;
+                _set_first_last_node();
+            }
             
             // splice
+            void        splice(iterator position, List& x)
+            {
+                splice(position, x, x.begin(), x.end());
+            }
+            void        splice(iterator position, List& x, iterator i)
+            {
+                insert(position, *i);
+                x.erase(i);
+            }
+            void        splice(iterator position, List& x, iterator first, iterator last)
+            {
+                insert(position, first, last);
+                x.erase(first, last);
+            }
             // remove
+            void remove(const value_type& val)
+            {
+                iterator iter = begin();
+                while (iter != end())
+                {
+                    if (*iter == val)
+                        iter = erase(iter);
+                    else
+                        iter++;
+                }
+            }
             // remove_if
+            template <class Predicate>
+            void        remove_if (Predicate pred)
+            {
+                iterator iter = begin();
+                while (iter != end())
+                {
+                    if (pred(*iter))
+                        iter = erase(iter);
+                    else 
+                        iter++;
+                }
+            }
             // unique
             // merge
             // sort

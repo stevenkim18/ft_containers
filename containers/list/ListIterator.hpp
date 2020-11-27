@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 17:47:24 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/26 18:19:50 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/27 15:28:53 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ namespace ft
             value_type &operator*() { return (_ptr->data); };
             // ->
             // ++
-            ListIterator &operator++() { _ptr = _ptr->next; return (*this); }   // ++a
+            ListIterator &operator++() { _ptr = _ptr->next; return (*this); }                       // ++a
+            ListIterator operator++(int) { ListIterator tmp(*this); operator++(); return (tmp); }   // a++
             // --
+            ListIterator &operator--() { _ptr = _ptr->prev; return (*this); }                       // --a
+            ListIterator operator--(int) { ListIterator tmp(*this); operator--(); return (tmp); }   // a--
         
     };
     template <typename T>
@@ -75,7 +78,7 @@ namespace ft
             value_type &operator*() { return (_ptr->data); };
             // ->
             // ++
-            ReverseListIterator &operator++() { _ptr = _ptr->next; return (*this); }
+            ReverseListIterator &operator++() { _ptr = _ptr->next; return (*this); }    // ++a
             // --
             
     };
