@@ -48,6 +48,9 @@ bool    over_100(const int& val) { return (val >= 100); }
 // for unique
 bool    eqaul(const int& a, const int& b) { return (a == b); }
 bool    diff_by_1(const int& a, const int& b) { return (a - b == -1); }
+// for sort
+bool    greater(const int& a, const int& b) { return (a > b); }
+bool    less(const int& a, const int& b) { return (a < b); }
 
 int main(void)
 {
@@ -345,6 +348,93 @@ int main(void)
     oneline("unique fun(diff by 1)");
     ol.unique(diff_by_1);
     ml.unique(diff_by_1);
+
+    print_all_element(ol, ml);
+
+    twoline("merge");
+    ol.clear(); ml.clear();
+    o2l.clear(); m2l.clear();
+
+    ol.push_back(1); ml.push_back(1);
+    ol.push_back(3); ml.push_back(3);
+    ol.push_back(5); ml.push_back(5);
+
+    o2l.push_back(2); m2l.push_back(2);
+    o2l.push_back(4); m2l.push_back(4);
+    o2l.push_back(6); m2l.push_back(6);
+
+    print_all_element(ol, ml);
+    print_all_element(o2l, m2l);
+
+    oneline("merge void");
+    ol.merge(o2l);
+    ml.merge(m2l);
+
+    print_all_element(ol, ml);
+    print_all_element(o2l, m2l);
+
+    oneline("merge with fun");
+    o2l.merge(ol, std::greater<int>());
+    m2l.merge(ml, std::greater<int>());
+
+    print_all_element(ol, ml);
+    print_all_element(o2l, m2l);
+
+    twoline("sort");
+
+    ol.clear(); ml.clear();
+    for (int i = 10; i > 0; i--)
+    {
+        ol.push_back(i);
+        ml.push_back(i);
+    }
+    ol.push_back(12); ml.push_back(12);
+    ol.push_back(11); ml.push_back(11);
+
+    print_all_element(ol, ml);
+
+    oneline("sort void");
+    ol.sort();
+    ml.sort();
+
+    print_all_element(ol, ml);
+
+    oneline("sort with fun(greater)");
+
+    ol.sort(greater);
+    ml.sort(greater);
+
+    print_all_element(ol, ml);
+
+    oneline("sort with fun(less)");
+
+    ol.sort(less);
+    ml.sort(less);
+
+    print_all_element(ol, ml);
+
+    twoline("reverse");
+    ol.clear(); ml.clear();
+    ol.push_back(3); ml.push_back(3);
+    ol.push_back(1); ml.push_back(1);
+    ol.push_back(5); ml.push_back(5);
+    ol.push_back(4); ml.push_back(4);
+    ol.push_back(2); ml.push_back(2);
+    ol.push_back(6); ml.push_back(6);
+
+    print_all_element(ol, ml);
+
+    ol.reverse();
+    ml.reverse();
+
+    print_all_element(ol, ml);
+
+    oneline("sort");
+
+    print_all_element(ol, ml);
+    
+    ol.sort(std::less<int>());
+    ml.sort(std::less<int>());
 
     print_all_element(ol, ml);
 }

@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 13:59:43 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/28 02:31:32 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/11/29 00:16:57 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,8 +309,62 @@ namespace ft
                 }
             }
             // merge
+            void        merge(List& x)
+            {
+                if (&x == this)
+                    return ;
+                insert(begin(), x.begin(), x.end());
+                x.clear();
+                sort();
+            }
+            template <class Compare>
+            void        merge(List& x, Compare comp)
+            {
+                if (&x == this)
+                    return ;
+                insert(end(), x.begin(), x.end());
+                x.clear();
+                sort(comp);
+            }
             // sort
+            void        sort()
+            {
+                for (iterator it = begin(); it != --end(); it++)
+                {
+                    for (iterator next_it = it; next_it != end(); next_it++)
+                    {
+                        if (*it > *next_it)
+                            ft::swap(*it, *next_it);
+                    }
+                }
+            }
+            template <class Compare>
+            void        sort(Compare comp)
+            {
+                for (iterator it = begin(); it != --end(); it++)
+                {
+                    for (iterator next_it = it; next_it != end(); next_it++)
+                    {
+                        if (!comp(*it, *next_it))
+                            ft::swap(*it, *next_it);
+                    }
+                }
+            }
             // reverse
+            void        reverse()
+            {
+                size_type i = 0;
+                iterator first = begin();
+                iterator last = --end();
+                while (i != _length / 2)
+                {
+                    ft::swap(*first, *last);
+                    first++;
+                    last--;
+                    i++;
+                }
+                
+            }
             
             // ==
             // !=
