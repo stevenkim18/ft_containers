@@ -57,6 +57,36 @@ int main(void)
     std::list<int> ol;
     ft::List<int> ml;
 
+    twoline("constructor");
+
+    oneline("fill constructor");
+
+    std::list<int> fill_ol(10u, 42);
+    ft::List<int> fill_ml(10u, 42);
+
+    print_all_element(fill_ol, fill_ml);
+
+    oneline("range constructor");
+    int arr[] = {42, 18, 42, 18};
+    std::list<int> range_ol(arr, arr + 4);
+    ft::List<int> range_ml(arr, arr + 4);
+
+    print_all_element(range_ol, range_ml);
+
+    oneline("copy constructor");
+    std::list<int> copy_ol(range_ol);
+    ft::List<int> copy_ml(range_ml);
+
+    print_all_element(copy_ol, copy_ml);
+
+    oneline("copy operator");
+    std::list<int> copy_op_ol = copy_ol;
+    ft::List<int> copy_op_ml = copy_ml;
+
+    print_all_element(copy_op_ol, copy_op_ml);
+
+    twoline("push back front back begin end");
+
     print_ori_my_value("size", ol.size(), ml.size());
     print_ori_my_value("front", ol.front(), ml.front());
     print_ori_my_value("back", ol.back(), ml.back());
@@ -437,4 +467,157 @@ int main(void)
     ml.sort(std::less<int>());
 
     print_all_element(ol, ml);
+
+    twoline("== != < <= > >=");
+
+    m2l.clear();
+
+    for (int i = 1; i < 7; i++)
+        m2l.push_back(i);
+
+    std::cout << "lhs ";
+    print_all_element(ol, ml);
+
+    std::cout << "rhs ";
+    print_all_element(o2l, m2l);
+
+    oneline("same list");
+    std::cout << std::boolalpha;
+    print_ori_my_value("'=='", ol == o2l, ml == m2l);
+    print_ori_my_value("'!='", ol != o2l, ml != m2l);
+    print_ori_my_value("'<'", ol < o2l, ml < m2l);
+    print_ori_my_value("'<='", ol <= o2l, ml <= m2l);
+    print_ori_my_value("'>'", ol > o2l, ml > m2l);
+    print_ori_my_value("'>='", ol >= o2l, ml >= m2l);
+
+    oneline("diff size");
+    ol.pop_back(); ml.pop_back();
+    std::cout << "lhs ";
+    print_all_element(ol, ml);
+
+    std::cout << "rhs ";
+    print_all_element(o2l, m2l);
+
+    print_ori_my_value("'=='", ol == o2l, ml == m2l);
+    print_ori_my_value("'!='", ol != o2l, ml != m2l);
+    print_ori_my_value("'<'", ol < o2l, ml < m2l);
+    print_ori_my_value("'<='", ol <= o2l, ml <= m2l);
+    print_ori_my_value("'>'", ol > o2l, ml > m2l);
+    print_ori_my_value("'>='", ol >= o2l, ml >= m2l);
+
+    oneline("diff element");
+    ol.push_back(1); ml.push_back(1);
+    std::cout << "lhs ";
+    print_all_element(ol, ml);
+
+    std::cout << "rhs ";
+    print_all_element(o2l, m2l);
+
+    print_ori_my_value("'=='", ol == o2l, ml == m2l);
+    print_ori_my_value("'!='", ol != o2l, ml != m2l);
+    print_ori_my_value("'<'", ol < o2l, ml < m2l);
+    print_ori_my_value("'<='", ol <= o2l, ml <= m2l);
+    print_ori_my_value("'>'", ol > o2l, ml > m2l);
+    print_ori_my_value("'>='", ol >= o2l, ml >= m2l);
+
+    twoline("swap");
+    o2l.clear(); m2l.clear();
+    for (int i = 1; i < 7; i++)
+    {
+        o2l.push_back(i * 100);   
+        m2l.push_back(i * 100);
+    }
+
+    std::cout << "lhs ";
+    print_all_element(ol, ml);
+
+    std::cout << "rhs ";
+    print_all_element(o2l, m2l);
+
+    ol.swap(o2l);
+    ml.swap(m2l);
+
+    oneline("after swap");
+
+    std::cout << "lhs ";
+    print_all_element(ol, ml);
+
+    std::cout << "rhs ";
+    print_all_element(o2l, m2l);
+
+    std::cout << "===========================================================" << std::endl;
+    twoline("iterator");
+
+    print_all_element(ol, ml);
+    
+    oneline("begin");
+    oit = ol.begin();
+    mit = ml.begin();
+
+    print_ori_my_value("begin", *oit, *mit);
+
+    oneline("++a");
+    oit++;
+    mit++;
+
+    print_ori_my_value("it", *oit, *mit);
+    
+    oneline("a++");
+    std::list<int>::iterator o2it = oit++;
+    ft::List<int>::iterator m2it = mit++;
+
+    print_ori_my_value("2it", *o2it, *m2it);
+    print_ori_my_value("it", *oit, *mit);
+
+    oneline("--a");
+    oit--;
+    mit--;
+    print_ori_my_value("it", *oit, *mit);
+
+    oneline("a--");
+    o2it = oit--;
+    m2it = mit--;
+
+    print_ori_my_value("2it", *o2it, *m2it);
+    print_ori_my_value("it", *oit, *mit);
+
+    oneline("'==' '!='");
+    print_ori_my_value("'=='", oit == o2it, mit == m2it);
+    print_ori_my_value("'!='", oit != o2it, mit != m2it);
+    
+    // oneline("->");
+    // std::list<std::pair<int, char> > pol;
+    // ft::List<std::pair<int, char> > pml;
+
+    // pol.push_back(std::make_pair(1, 'a'));
+    // pml.push_back(std::make_pair(1, 'a'));
+    // pml.push_back(std::make_pair(2, 'b'));
+
+    // std::list<std::pair<int, char> >::iterator poit = pol.begin();
+    // ft::List<std::pair<int, char> >::iterator pmit = pml.begin();
+
+    twoline("reverse_iterator");
+
+    print_all_element(ol, ml);
+    
+    std::list<int>::reverse_iterator roit = ol.rbegin();
+    ft::List<int>::reverse_iterator rmit = ml.rbegin();
+
+    oneline("*");
+
+    print_ori_my_value("*", *roit, *rmit);
+
+    oneline("++a");
+    
+    roit++;
+    rmit++;
+
+    print_ori_my_value("*", *roit, *rmit);
+
+    oneline("--a");
+
+    roit--;
+    rmit--;
+
+    print_ori_my_value("*", *roit, *rmit);
 }

@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 13:59:43 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/29 00:16:57 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/01 02:36:03 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ namespace ft
     class List
     {
         public:
-            typedef T                           value_type;
-            typedef Alloc                       allocator_type;
-            typedef T&                          reference;
-            typedef const T&                    const_reference;
-            typedef T*                          pointer;
-            typedef const T*                    const_pointer;
-            typedef ft::ListIterator<T>         iterator;
-            // typedef ConstListIterator           const_iterator;
-            typedef ft::ReverseListIterator<T>  reverse_iterator;
-            // typedef ConstReverseListIterator    const_reverse_iterator;
-            typedef size_t                      size_type;
+            typedef T                               value_type;
+            typedef Alloc                           allocator_type;
+            typedef T&                              reference;
+            typedef const T&                        const_reference;
+            typedef T*                              pointer;
+            typedef const T*                        const_pointer;
+            typedef ft::ListIterator<T>             iterator;
+            typedef ft::ConstListIterator<T>        const_iterator;
+            typedef ft::ReverseListIterator<T>      reverse_iterator;
+            typedef ft::ConstReverseListIterator<T> const_reverse_iterator;
+            typedef size_t                          size_type;
         
         private:
             Node<T>*            _first;
@@ -64,7 +64,7 @@ namespace ft
                     _last->data = value_type();
                 }
                 else if (_length == 1)                  // 이해 할 수 없음..
-                {
+                {   
                     _last->data = 1;
                     _first->data = _last->data;        
                 }
@@ -85,31 +85,81 @@ namespace ft
                 _init_list();
             }
             // fill constructor
+            explicit List(size_type n, const value_type& val, const allocator_type& alloc = allocator_type())
+                : _length(0)
+            {
+                (void)alloc;
+                _init_list();
+                assign(n, val);
+            }
             // range constructor
+            template <class InputIterator>
+            List (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+                : _length(0)
+            {
+                (void)alloc;
+                _init_list();
+                assign(first, last);
+            }
             // copy constructor
+            List (const List& x)
+                : _length(0)
+            {
+                _init_list();
+                assign(x.begin(), x.end());
+                _length = x._length;
+            }
             // destructor
-            ~List() { delete _first; delete _last; }
+            ~List() { clear(); delete _first; delete _last; }
             // operator=
-            
+            List &operator=(const List &x)
+            {
+                clear();
+                assign(x.begin(), x.end());
+                _length = x._length;
+                return (*this);
+            }
             // begin
-            iterator begin() { return (iterator(_first->next)); }
+            iterator                begin() { return (iterator(_first->next)); }
+            const_iterator          begin() const { return (const_iterator(_first->next)); }
             // end
-            iterator end() { return (iterator(_last)); }
+            iterator                end() { return (iterator(_last)); }
+            const_iterator          end() const { return (const_iterator(_last)); }
             // rbegin
-            reverse_iterator rbegin() { return (reverse_iterator(_last->prev)); }
+            reverse_iterator        rbegin() { return (reverse_iterator(_last->prev)); }
+            const_reverse_iterator  rbegin() const { return (const_reverse_iterator(_last->prev)); }
             // rend
-            reverse_iterator rend() { return (reverse_iterator(_first)); }
+            reverse_iterator        rend() { return (reverse_iterator(_first)); }
+            const_reverse_iterator  rend() const { return (const_reverse_iterator(_first)); }
             // empty
-            bool empty() const { return (_length == 0); }
+            bool                    empty() const { return (_length == 0); }
             // size
-            size_type size() const { return (_length); }
+            size_type               size() const { return (_length); }
             // max_size
-            size_type max_size() const { return (std::numeric_limits<size_type>::max() / (sizeof(Node<T>))); }
+            size_type               max_size() const { return (std::numeric_limits<size_type>::max() / (sizeof(Node<T>))); }
             // front
-            reference front() { return (_first->next->data); }
+            reference               front() { return (_first->next->data); }
+            const_reference         front() const { return (_first->next->data); }
             // back
-            reference back() { return (_last->prev->data); }
+            reference               back() { return (_last->prev->data); }
+            const_reference         back() const { return (_last->prev->data); }
             // assign
+            template <class InputIterator>
+            void    assign(InputIterator first, InputIterator last)
+            {
+                clear();
+                while (first != last)
+                {
+                    push_back(*first);
+                    first++;
+                }
+            }
+            void    assign(size_type n, const value_type& val)
+            {
+                clear();
+                while (n--)
+                    push_back(val);
+            }
             // push_front
             void    push_front(const value_type& val)
             {
@@ -363,18 +413,59 @@ namespace ft
                     last--;
                     i++;
                 }
-                
             }
-            
-            // ==
-            // !=
-            // <
-            // <=
-            // >
-            // >=
-            // swap
-            
     };
+    // ==
+    template <typename T>
+    bool operator==(List<T>& lhs, List<T>& rhs)
+    {
+        if (lhs.size() != rhs.size())
+            return (false);
+        typename List<T>::iterator l_iter = lhs.begin();
+        typename List<T>::iterator r_iter = rhs.begin();
+        while (l_iter != lhs.end())
+        {
+            if (*l_iter != *r_iter)
+                return (false);
+            l_iter++;
+            r_iter++;
+        }
+        return (true);
+    };
+    // !=
+    template <typename T>
+    bool operator!=(List<T>& lhs, List<T>& rhs) { return (!(lhs == rhs)); }
+    // <
+    template <typename T>
+    bool operator<(List<T>& lhs, List<T>& rhs)
+    {
+        if (lhs.size() < rhs.size())
+            return (true);
+        if (lhs.size() > rhs.size())
+            return (false);
+        typename List<T>::iterator l_iter = lhs.begin();
+        typename List<T>::iterator r_iter = rhs.begin();
+        while (l_iter != lhs.end())
+        {
+            if (*l_iter != *r_iter)
+                return (*l_iter < *r_iter);
+            l_iter++;
+            r_iter++;
+        }
+        return (false);
+    }
+    // <=
+    template <typename T>
+    bool operator<=(List<T> &lhs, List<T> &rhs) { return (!(rhs < lhs)); }
+    // >
+    template <typename T>
+    bool operator>(List<T> &lhs, List<T> &rhs) { return (rhs < lhs); }
+    // >=
+    template <typename T>
+    bool operator>=(List<T> &lhs, List<T> &rhs) { return (!(lhs < rhs)); }
+    // swap
+    template <typename T>
+    void swap(List<T> &x, List<T> &y) { x.swap(y); }    
 };
 
 #endif
