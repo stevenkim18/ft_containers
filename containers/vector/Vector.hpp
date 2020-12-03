@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 06:20:16 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/03 14:41:07 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/03 16:01:11 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,39 @@ namespace ft
 			}
 			// fill constructor
 			explicit Vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
-				:
+				: _arr(nullptr), _length(0), _capacity(0), _allocator(alloc)
 			{
-				
+				_arr = _allocator.allocate(0);
+				assign(n, val);
 			}
 			// range constructor
+			template <class InputIterator>
+         	Vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type())
+				: _arr(nullptr), _length(0), _capacity(0), _allocator(alloc)
+			{
+				_arr = _allocator.allocate(0);
+				assign(first, last);
+			}
 			// copy constructor
-
+			Vector (const Vector& x)
+				: _arr(nullptr), _length(0), _capacity(0), _allocator(x._allocator)
+			{
+				*this = x;		
+			}
 			// destructor
 			~Vector() { _allocator.deallocate(_arr, _capacity); }
 			// operator=
+			Vector& operator= (const Vector& x)
+			{
+				if (_arr != nullptr)
+					_allocator.deallocate(_arr, _capacity);
+				_allocator = x._allocator;
+				_length = x._length;
+				_capacity = x._capacity;
+				_arr = _allocator.allocate(0);
+				assign(x.begin(), x.end());
+				return (*this);
+			}
 
 			iterator 				begin() { return (iterator(_arr)); }
 			const_iterator 			begin() const { return (const_iterator (_arr)); }
@@ -161,7 +184,7 @@ namespace ft
 			void					insert(iterator position, size_type n, const value_type& val)
 			{
 				while (n--)
-					position = insert(postion, val);
+					position = insert(position, val);
 			}
 			template<class InputIterator>
 			void					insert(iterator position, InputIterator begin, InputIterator end)
@@ -180,7 +203,7 @@ namespace ft
 					*iter = *(iter + 1);
 					iter++;
 				}
-				_length==;
+				_length--;
 				return (iterator(position));
 			}
 			iterator				erase(iterator begin, iterator end)
@@ -216,7 +239,7 @@ namespace ft
 		return (true);
 	};
 	template <class T, class Alloc>
-	bool operator!=(const Vector<T, Alloc> &a, const Vector<T, Alloc> &b) { return (!(a == b)) };
+	bool operator!=(const Vector<T, Alloc> &a, const Vector<T, Alloc> &b) { return (!(a == b)); }
 	template <class T, class Alloc>
 	bool operator<(const Vector<T, Alloc> &a, const Vector<T, Alloc> &b)
 	{
@@ -236,7 +259,7 @@ namespace ft
 	template <class T, class Alloc>
 	bool operator<=(const Vector<T,Alloc> &a, const Vector<T,Alloc> &b) { return (a < b || a == b); };
 	template <class T, class Alloc>
-	bool operator>(const Vector<T,Alloc> &a, const Vector<T,Alloc> &b) { return (!(a < b) && !(a == b)) };
+	bool operator>(const Vector<T,Alloc> &a, const Vector<T,Alloc> &b) { return (!(a < b) && !(a == b)); }
 	template <class T, class Alloc>
 	bool operator>=(const Vector<T,Alloc> &a, const Vector<T,Alloc> &b) { return (!(a < b)); };
 	template <class T, class Alloc>
