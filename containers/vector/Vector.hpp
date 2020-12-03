@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 06:20:16 by seunkim           #+#    #+#             */
-/*   Updated: 2020/11/24 08:43:39 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/03 14:41:07 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ namespace ft
 				_arr = _allocator.allocate(0);
 			}
 			// fill constructor
+			explicit Vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type())
+				:
+			{
+				
+			}
 			// range constructor
 			// copy constructor
 
