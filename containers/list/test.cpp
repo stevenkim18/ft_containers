@@ -404,8 +404,8 @@ int main(void)
     print_all_element(o2l, m2l);
 
     oneline("merge with fun");
-    o2l.merge(ol, std::greater<int>());
-    m2l.merge(ml, std::greater<int>());
+    o2l.merge(ol, greater);
+    m2l.merge(ml, greater);
 
     print_all_element(ol, ml);
     print_all_element(o2l, m2l);
