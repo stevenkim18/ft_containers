@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 13:59:43 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/01 02:36:03 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/03 12:54:09 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,7 +374,15 @@ namespace ft
                     return ;
                 insert(end(), x.begin(), x.end());
                 x.clear();
-                sort(comp);
+                //sort(comp);
+                for (iterator it = begin(); it != --end(); it++)
+                {
+                    for (iterator next_it = it; next_it != end(); next_it++)
+                    {
+                        if (comp(*it, *next_it))
+                            ft::swap(*it, *next_it);
+                    }
+                }
             }
             // sort
             void        sort()
