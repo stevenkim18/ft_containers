@@ -60,6 +60,11 @@
 		"unordered_map": "cpp",
 		"utility": "cpp",
 		"vector": "cpp",
-		"list": "cpp"
+		"list": "cpp",
+		"__tree": "cpp",
+		"deque": "cpp",
+		"map": "cpp",
+		"queue": "cpp",
+		"stack": "cpp"
 	}
 }
