@@ -49,7 +49,8 @@ class BST
 			if (node == nullptr)
 				return ;
 			print_in_order(node->left);
-			std::cout << node->data << " ";
+			std::cout << node->data << " "; 		// 일반 변수 타입 일때
+		//	std::cout << "(" << node->data.first << ", " << node->data.second << ") "; 	// pair 일때!
 			print_in_order(node->right);
 		}
 		// 탐색
@@ -130,21 +131,27 @@ class BST
 
 			// 삭제 부분!
 			if (node->data == data)
-			{
+			{	
+				Bnode<T>* tmp_node = node;		// for delete removed node
 				// 자식이 없을 떄
 				if (node->left == nullptr && node->right == nullptr)
+				{
 					node = nullptr;
+					delete tmp_node;
+				}
 				// 오른쪽 자식만 있을 때
 				else if (node->left == nullptr && node->right != nullptr)
 				{
 					node->right->parent = node->parent;
 					node = node->right;
+					delete tmp_node;
 				}
 				// 왼쪽 자식만 있을 때
 				else if (node->left != nullptr && node->right == nullptr)
 				{
 					node->left->parent = node->parent;
 					node = node->left;
+					delete tmp_node;
 				}
 				// 자식이 둘다 있을 때
 				else
