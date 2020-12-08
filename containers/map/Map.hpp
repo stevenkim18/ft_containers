@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/07 03:07:25 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/08 01:56:27 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ namespace ft
 			// begin
 			iterator		begin()	{ return (iterator(_bst.find_min())); }
 			// end
+			iterator		end() { return (iterator(_bst.find_max())); }
 			// rbegin
 			// rend
 			
@@ -64,6 +65,11 @@ namespace ft
 			// operator[]
 			
 			// insert
+			std::pair<iterator, bool>		insert(const value_type& val)
+			{
+				_bst.insert(val);
+				return (nullptr);
+			}
 			// erase
 			// swap
 			// clear
@@ -72,6 +78,11 @@ namespace ft
 			// value_comp
 			
 			// find
+			// iterator		find(const key_type& k)
+			// {
+			// 	if (_bst.search(k))
+					
+			// }
 			// count 0 or 1
 			// lower_bound
 			// upper_bound

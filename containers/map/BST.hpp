@@ -51,8 +51,8 @@ class BST
 			if (node == nullptr)
 				return ;
 			print_in_order(node->left);
-			std::cout << node->data << " "; 		// 일반 변수 타입 일때
-		//	std::cout << "(" << node->data.first << ", " << node->data.second << ") "; 	// pair 일때!
+			//std::cout << node->data << " "; 		// 일반 변수 타입 일때
+			std::cout << "(" << node->data.first << ", " << node->data.second << ") "; 	// pair 일때!
 			print_in_order(node->right);
 		}
 		// 탐색
@@ -203,13 +203,10 @@ class BST
 			print_in_order(_root);
 			std::cout << "]" << std::endl;
 		}
-		bool		search(T data)
+		Bnode<T>*		search(T data)
 		{
 			Bnode<T>* result = search_node(_root, data);
-			if (result)
-				return (true);
-			else
-				return (false);
+			return (result);
 		}
 		Bnode<T>*	find_min()
 		{

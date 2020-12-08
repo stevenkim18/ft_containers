@@ -22,3 +22,6 @@ size = 2
 
 # 대박 링크
 https://medium.com/swlh/binary-search-trees-c-484377f0d349
+
+# 이슈
+## BST의 typename T를 std::pair로 받아오려고 했는데 key 값이 중복되면 안되기에 수정해야 함.
