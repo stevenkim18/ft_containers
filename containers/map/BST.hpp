@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   BST.hpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/09 23:22:25 by seunkim           #+#    #+#             */
+/*   Updated: 2020/12/10 01:45:59 by seunkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BST_HPP
 # define BST_HPP
 
@@ -52,7 +64,7 @@ class BST
 				return ;
 			print_in_order(node->left);
 			//std::cout << node->data << " "; 		// 일반 변수 타입 일때
-			std::cout << "(" << node->data.first << ", " << node->data.second << ") "; 	// pair 일때!
+			std::cout << "(" << node->data._key << ", " << node->data._value << ") "; 	// pair 일때!
 			print_in_order(node->right);
 		}
 		// 탐색
@@ -216,20 +228,13 @@ class BST
 		{
 			return (find_max_node(_root));
 		}
-		T&			successor(T data)
+		Bnode<T>*	successor(T data)
 		{
-			Bnode<T>* node = search_node(_root, data);
-			Bnode<T>* s_node = successor_node(node);
-			// if (s_node)
-			return (s_node->data);
-			// else	// 트리 안에 찾고자 하는 값이 없으면 자신 리턴
-			// 	return (&data);
+			return (successor_node(search(data)));
 		}
-		T&			predecessor(T data)
+		Bnode<T>*	predecessor(T data)
 		{
-			Bnode<T>* node = search_node(_root, data);
-			Bnode<T>* p_node = predecessor_node(node);
-			return (p_node->data);
+			return (predecessor_node(search(data)));
 		}
 		void		remove(T data)
 		{

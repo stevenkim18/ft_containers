@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/08 01:56:27 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/10 01:40:53 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <iostream>
 # include "BST.hpp"
 # include "MapIterator.hpp"
+# include "Pair.hpp"
 
 namespace ft
 {
@@ -25,7 +26,7 @@ namespace ft
 		public:
 			typedef Key						key_type;
 			typedef T						mapped_type;
-			typedef std::pair<const Key, T> value_type;
+			typedef ft::Pair<Key, T> 		value_type;
 			typedef Compare					key_compare;
 			// value_compare
 			typedef Alloc					allocator_type;
@@ -40,7 +41,7 @@ namespace ft
 			typedef	size_t					size_type;
 
 		private:
-			BST<std::pair<Key, T> >			_bst;
+			BST<ft::Pair<Key, T> >			_bst;
 			allocator_type					_allocator;
 			key_compare						_comp;
 
@@ -66,9 +67,9 @@ namespace ft
 			
 			// insert
 			std::pair<iterator, bool>		insert(const value_type& val)
-			{
+			{	
 				_bst.insert(val);
-				return (nullptr);
+				return (std::pair<iterator, bool>(iterator(begin()), true));
 			}
 			// erase
 			// swap
