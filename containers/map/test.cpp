@@ -28,12 +28,12 @@ void    print_all_element(std::map<K, T> &om, ft::Map<K, T> &mm)
     std::cout << GREEN << "[ ";
     for (typename std::map<K, T>::iterator it = om.begin(); it != om.end(); it++)
         std::cout << "(" << it->first << "," << it->second << ")";
-    std::cout << "]" << RESET << std::endl;
+    std::cout << " ]" << RESET << std::endl;
 
     std::cout << RED << "[ ";
     for (typename ft::Map<K, T>::iterator it = mm.begin(); it != mm.end(); ++it)
         std::cout << "(" << it->_key << "," << it->_value << ")";
-    std::cout << "]" << RESET << std::endl;
+    std::cout << " ]" << RESET << std::endl;
 }
 
 int main(void)
@@ -59,8 +59,6 @@ int main(void)
     om.insert(std::make_pair<int, std::string>(16, "uti"));     mm.insert(ft::Pair<int, std::string>(16, "uti")); 
 
     print_all_element(om, mm);
-
-    std::cout << om.end()->first << std::endl;
 
     // ft::Map<int, std::string>::iterator oit = mm.begin();
     // ft::Map<int, std::string>::iterator oit2 = mm.end();

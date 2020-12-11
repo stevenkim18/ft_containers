@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 23:22:25 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/10 01:45:59 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/11 09:38:55 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ class BST
 			if (node == nullptr)
 				return ;
 			print_in_order(node->left);
-			//std::cout << node->data << " "; 		// 일반 변수 타입 일때
+			// std::cout << node->data << " "; 		// 일반 변수 타입 일때
 			std::cout << "(" << node->data._key << ", " << node->data._value << ") "; 	// pair 일때!
 			print_in_order(node->right);
 		}
@@ -206,8 +206,23 @@ class BST
 		}
 		size_t		get_size()	{ return (_size); }
 		void		insert(T data)
-		{
+		{	
+			// 최대 값 오른쪽 노드 삭제
+			if (_root)
+			{
+				Bnode<T>*	end_node = find_max();
+				Bnode<T>*	max_node = end_node->parent;
+				max_node->right = nullptr;
+				delete end_node;
+			}
 			_root = insert_node(_root, data);
+			// 최대 값 오른쪽 노드 추가 
+			Bnode<T>*	max_node = find_max();
+			Bnode<T>*	end_node = new Bnode<T>;
+			end_node->left = nullptr;
+			end_node->right = nullptr;
+			end_node->parent = max_node;
+			max_node->right = end_node;
 		}
 		void		print_in_order()
 		{
