@@ -4,10 +4,10 @@
 
 int main(void)
 {
-    // BST<ft::Pair<int, std::string> > bst;
+    BST<ft::Pair<int, std::string> > bst;
 
-    // bst.insert(ft::Pair<int, std::string>(5, "vds"));
-    // bst.insert(ft::Pair<int, std::string>(10, "eqw"));
+    bst.insert(ft::Pair<int, std::string>(5, "vds"));
+    bst.insert(ft::Pair<int, std::string>(10, "eqw"));
     // bst.insert(ft::Pair<int, std::string>(2, "asdf"));
     // bst.insert(ft::Pair<int, std::string>(7, "xvd"));
     // bst.insert(ft::Pair<int, std::string>(13, "gte"));
@@ -16,7 +16,10 @@ int main(void)
     // bst.insert(ft::Pair<int, std::string>(5, "afr"));
     // bst.insert(ft::Pair<int, std::string>(9, "yth"));
 
-    // bst.print_in_order();
+    bst.print_in_order();
+
+    bst.search(5);
+    bst.search(100);
 
     // ft::Pair<int, std::string> pair (10, "sadf");
     // ft::Pair<int, std::string> pair2 (20, "asd");
@@ -25,9 +28,9 @@ int main(void)
     // std::cout << (pair < pair2) << std::endl;
     // std::cout << (pair > pair2) << std::endl;
 
-    BST<int> bst;
+    // BST<int> bst;
 
-    bst.insert(10);
-    bst.insert(5);
+    // bst.insert(10);
+    // bst.insert(5);
 
 }

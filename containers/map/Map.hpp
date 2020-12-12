@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/10 01:40:53 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/12 11:28:18 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MAP_HPP
 
 # include <iostream>
+# include <limits>
 # include "BST.hpp"
 # include "MapIterator.hpp"
 # include "Pair.hpp"
@@ -41,6 +42,8 @@ namespace ft
 			typedef	size_t					size_type;
 
 		private:
+			typedef	Bnode<value_type>*		Node;
+
 			BST<ft::Pair<Key, T> >			_bst;
 			allocator_type					_allocator;
 			key_compare						_comp;
@@ -60,16 +63,25 @@ namespace ft
 			// rend
 			
 			// empty
-			// size
+			bool empty() const { return (_bst.get_size() == 0); }
+			// size'
+			size_type size() const { return (_bst.get_size()); }
 			// max_size
-
+			size_type max_size() const { return (std::numeric_limits<size_type>::max() / (sizeof(Bnode<value_type>))); }
 			// operator[]
-			
+			mapped_type& operator[] (const key_type& k)
+			{
+				
+			}
 			// insert
 			std::pair<iterator, bool>		insert(const value_type& val)
 			{	
+				Node tmp= _bst.search(val);
+				// 이미 있는 값이면 
+				if (tmp)
+					return (std::make_pair(iterator(tmp), false));
 				_bst.insert(val);
-				return (std::pair<iterator, bool>(iterator(begin()), true));
+				return (std::make_pair(iterator(_bst.search(val)), true));
 			}
 			// erase
 			// swap

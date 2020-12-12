@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 23:22:25 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/11 09:38:55 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/12 11:47:25 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,19 @@ class BST
 			print_in_order(node->right);
 		}
 		// 탐색
+		template <typename K>
+		Bnode<T>*	search_node(Bnode<T>* node, K& key)
+		{
+			if (node == nullptr)
+				return (nullptr);
+			else if (key == node->data._key)
+				return (node);
+			else if (key < node->data._key)
+				return search_node(node->left, key);
+			else if (key > node->data._key)
+				return search_node(node->right, key);
+			return (nullptr);
+		}
 		Bnode<T>*	search_node(Bnode<T>* node, T& data)
 		{
 			if (node == nullptr)
@@ -196,6 +209,7 @@ class BST
 				delete node;
 			}
 		}
+		
 	public:
 		// 생성자 -> _root null로 초기화
 		BST() : _root(nullptr), _size(0) {}
@@ -230,6 +244,20 @@ class BST
 			print_in_order(_root);
 			std::cout << "]" << std::endl;
 		}
+		template <typename K>
+		Bnode<T>*		search(K key)
+		{
+			Bnode<T>* result = search_node(_root, key);
+			if (result)
+			{
+				std::cout << "key = " << result->data._key << std::endl;
+				std::cout << "value = " << result->data._value << std::endl;
+				std::cout << result << std::endl;
+			}
+			else
+				std::cout << result << std::endl;
+			return (result);	
+		}
 		Bnode<T>*		search(T data)
 		{
 			Bnode<T>* result = search_node(_root, data);
@@ -255,6 +283,7 @@ class BST
 		{
 			_root = remove_node(_root, data);
 		}
+		size_t		get_size() const { return (_size); }
 };
 
 #endif
