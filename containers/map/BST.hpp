@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 23:22:25 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/12 11:47:25 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/12 14:56:06 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,14 +248,6 @@ class BST
 		Bnode<T>*		search(K key)
 		{
 			Bnode<T>* result = search_node(_root, key);
-			if (result)
-			{
-				std::cout << "key = " << result->data._key << std::endl;
-				std::cout << "value = " << result->data._value << std::endl;
-				std::cout << result << std::endl;
-			}
-			else
-				std::cout << result << std::endl;
 			return (result);	
 		}
 		Bnode<T>*		search(T data)

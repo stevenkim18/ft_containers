@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/12 11:28:18 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/12 17:58:30 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,15 @@ namespace ft
 			// operator[]
 			mapped_type& operator[] (const key_type& k)
 			{
-				
+				Node tmp = _bst.search(k);
+				if (tmp)
+					return(tmp->data._value);
+				else
+				{
+					value_type new_pair = ft::Pair<Key, T>(k, mapped_type());
+					_bst.insert(new_pair);
+					return (_bst.search(k)->data._value);
+				}
 			}
 			// insert
 			std::pair<iterator, bool>		insert(const value_type& val)
@@ -83,6 +91,15 @@ namespace ft
 				_bst.insert(val);
 				return (std::make_pair(iterator(_bst.search(val)), true));
 			}
+			iterator insert (iterator position, const value_type& val)
+			{
+				(void)position;
+				Node tmp = _bst.search(val);
+				if (tmp)
+					return (iterator(tmp));
+				_bst.insert(val);
+				return (iterator(_bst.search(val)));
+			}
 			// erase
 			// swap
 			// clear
@@ -92,10 +109,7 @@ namespace ft
 			
 			// find
 			// iterator		find(const key_type& k)
-			// {
-			// 	if (_bst.search(k))
-					
-			// }
+
 			// count 0 or 1
 			// lower_bound
 			// upper_bound
