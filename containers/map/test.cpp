@@ -221,17 +221,30 @@ int main(void)
 
     print_all_element(om, mm);
 
-    // oneline("erase no key in the map");
-    // print_ori_my_value("erase 3", om.erase(3), mm.erase(3));
-    // print_ori_my_value("erase 30", om.erase(30), mm.erase(30));
-    // print_ori_my_value("erase 37", om.erase(37), mm.erase(37));
+    oneline("erase no key in the map");
+    print_ori_my_value("erase 3", om.erase(3), mm.erase(3));
+    print_ori_my_value("erase 30", om.erase(30), mm.erase(30));
+    print_ori_my_value("erase 37", om.erase(37), mm.erase(37));
 
-    // print_all_element(om, mm);
+    print_all_element(om, mm);
+    mm.print_all();
 
+    twoline("erase with two iterators");
 
+    oiter = om.end();
+    miter = mm.end();
 
+    oiter--; oiter--; oiter--; oiter--;
+    miter--; miter--; miter--; miter--;
 
+    print_ori_my_value("iter", oiter->first, miter->_key);
 
+    oneline("erase 24 to 45");
+
+    om.erase(oiter, --om.end());
+    mm.erase(miter, --mm.end());
+
+    print_all_element(om, mm);
 
     // std::map<int, std::string>::iterator it;
 

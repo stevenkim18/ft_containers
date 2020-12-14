@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/15 02:03:44 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/15 02:51:06 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,9 @@ namespace ft
 			{
 				while (first != last)
 				{
-					erase(*first);
+					erase(first);
 					first++;
 				}
-					
 			}
 			// swap
 			// clear

@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:34:18 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/14 20:52:07 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/15 02:53:18 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,20 @@ namespace ft
     		}
     		pointer	predecessor_node(pointer node)
     		{
+				// if (node->left)
+				// 	std::cout << "00000node left = " << node->left->data._key << std::endl;
+				// max node 가 end node 를 리턴해야 해서 그 부모를 리턴
     			if (node->left != nullptr)
-    				return (find_max_node(node->left));
+					return find_min_node(node->left);
+    				//return (find_max_node(node->left)->parent);
     			else
     			{
     				pointer	parent = node->parent;
     				pointer	current = node;
-    
+					// std::cout << "11111parent = " << parent->data._key << " current = " << current->data._key << std::endl;
     				while ((parent != nullptr) && (current == parent->left))
-    				{
+   	 				{
+						// std::cout << "22222parent = " << parent->data._key << " current = " << current->data._key << std::endl;	
     					current = parent;
     					parent = current->parent;
     				}
