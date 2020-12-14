@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/15 02:51:06 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/15 03:17:39 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "BST.hpp"
 # include "MapIterator.hpp"
 # include "Pair.hpp"
+# include "../utils.hpp"
 
 namespace ft
 {
@@ -136,7 +137,26 @@ namespace ft
 				}
 			}
 			// swap
+			// void		swap(Map &x)
+			// {
+			// 	print_all();
+			// 	Map<Key, T> tmp;
+			// 	tmp.insert(begin(), end());
+			// 	std::cout << "tmp=";
+			// 	tmp.print_all();
+			// 	clear();
+			// 	insert(x.begin(), x.end());
+			// 	std::cout << "x=";
+			// 	x.print_all();
+			// 	x.clear();
+			// 	tmp.insert(begin(), end());
+				
+			// }
 			// clear
+			void		clear()
+			{
+				erase(begin(), end());
+			}
 			
 			// key_comp
 			// value_comp

@@ -246,6 +246,23 @@ int main(void)
 
     print_all_element(om, mm);
 
+    twoline("swap");
+
+    std::map<int, std::string> om2;
+    ft::Map<int, std::string> mm2;
+
+    om.insert(std::make_pair<int, std::string>(100, "wer"));     mm.insert(ft::Pair<int, std::string>(100, "wer")); 
+    om.insert(std::make_pair<int, std::string>(200, "xvv"));      mm.insert(ft::Pair<int, std::string>(200, "xvv"));  
+
+    om.swap(om2);
+    mm.swap(mm2);
+
+    oneline("original map");
+    print_all_element(om, mm);
+
+    oneline("new map(swaped map");
+    print_all_element(om2, mm2);
+
     // std::map<int, std::string>::iterator it;
 
     // it = om.insert(om.begin(), std::make_pair<int, std::string>(99, "sadf"));
