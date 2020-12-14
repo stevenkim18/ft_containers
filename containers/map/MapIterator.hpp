@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 02:34:18 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/10 02:23:59 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/14 20:52:07 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ namespace ft
             value_type  &operator*() { return (_ptr->data); }
             value_type  *operator->() { return (&_ptr->data); }
             MapIterator &operator++() { _ptr = successor_node(_ptr); return (*this); }
+			MapIterator operator++(int) { MapIterator tmp(*this); operator++(); return (tmp); }
+			MapIterator &operator--() { _ptr = predecessor_node(_ptr); return (*this); }
+			MapIterator operator--(int) { MapIterator tmp(*this); operator--(); return (tmp); }
             bool        operator==(const MapIterator<Key, T> &ref) 
             {
                 return (_ptr->data == ref._ptr->data);

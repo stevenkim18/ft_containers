@@ -180,6 +180,59 @@ int main(void)
 
     print_all_element(om, mm);
 
+    twoline("erase with iterator");
+
+    oneline("erase begin");
+    om.erase(om.begin());
+    mm.erase(mm.begin());
+
+    print_all_element(om, mm);
+
+    oneline("erase end");
+    om.erase(--om.end());
+    mm.erase(--mm.end());
+
+    print_all_element(om, mm);
+
+    oneline("erase middle");
+
+    oiter = om.begin();
+    miter = mm.begin();
+
+    // move to plus 4    
+    oiter++; oiter++; oiter++; oiter++;
+    miter++; miter++; miter++; miter++;
+
+    print_ori_my_value("iter first", oiter->first, miter->_key);
+    print_ori_my_value("iter second", oiter->second, miter->_value);
+
+    om.erase(oiter);
+    mm.erase(miter);
+
+    print_all_element(om, mm);
+
+    twoline("erase with key");
+
+    oneline("erase key in the map");
+
+    print_ori_my_value("erase 3", om.erase(3), mm.erase(3));
+    print_ori_my_value("erase 10", om.erase(10), mm.erase(10));
+    print_ori_my_value("erase 42", om.erase(42), mm.erase(42));
+
+    print_all_element(om, mm);
+
+    // oneline("erase no key in the map");
+    // print_ori_my_value("erase 3", om.erase(3), mm.erase(3));
+    // print_ori_my_value("erase 30", om.erase(30), mm.erase(30));
+    // print_ori_my_value("erase 37", om.erase(37), mm.erase(37));
+
+    // print_all_element(om, mm);
+
+
+
+
+
+
     // std::map<int, std::string>::iterator it;
 
     // it = om.insert(om.begin(), std::make_pair<int, std::string>(99, "sadf"));

@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 23:22:25 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/12 14:56:06 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/15 02:02:47 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,31 @@ class BST
 				return ;
 			print_in_order(node->left);
 			// std::cout << node->data << " "; 		// 일반 변수 타입 일때
-			std::cout << "(" << node->data._key << ", " << node->data._value << ") "; 	// pair 일때!
+			// std::cout << "(" << node->data._key << "," << node->data._value << ")"; 	// pair 일때!
+			if (node->left)
+				std::cout << "(" << node->left->data._key << ",";
+			else
+				std::cout << "(-1,";
+			std::cout << node->data._key << ",";
+			if (node->right)
+				std::cout << node->right->data._key << ")";
+			else
+				std::cout << "-1)";
 			print_in_order(node->right);
 		}
 		// 탐색
 		template <typename K>
 		Bnode<T>*	search_node(Bnode<T>* node, K& key)
 		{
+			// if (node)
+			// {
+			// 	std::cout << "node->key = " << node->data._key << " key = " << key << std::endl;
+			// 	if (node->left)
+			// 		std::cout << "node->left = " << node->left->data._key; 
+			// 	if (node->right)
+			// 		std::cout << " node->right = " << node->right->data._key;
+			// 	std::cout << std::endl;
+			// }
 			if (node == nullptr)
 				return (nullptr);
 			else if (key == node->data._key)
@@ -273,7 +291,21 @@ class BST
 		}
 		void		remove(T data)
 		{
-			_root = remove_node(_root, data);
+			Bnode<T>* tmp = search(data);
+			Bnode<T>* end_node = find_max();
+			// 이 경우는 마지막 노드를 삭제 할 때 필요!
+			// 최대값 노드 오른쪽 빈 노드가 있기 때문
+			if (tmp->data == end_node->parent->data)
+			{
+				end_node->parent->right = nullptr;
+				end_node->parent = nullptr;
+				_root = remove_node(_root, data);
+				Bnode<T>* max_node = find_max();
+				max_node->right = end_node;
+				end_node->parent = max_node;
+			}
+			else
+				_root = remove_node(_root, data);
 		}
 		size_t		get_size() const { return (_size); }
 };

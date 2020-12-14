@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/14 20:18:04 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/15 02:03:44 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,32 @@ namespace ft
 				}
 			}
 			// erase
+			void 	   erase(iterator position)
+			{
+				_bst.remove(*position);
+			}
+			size_type 	erase(const key_type& k)
+			{
+				Node tmp = _bst.search(k);
+				// std::cout << tmp->data._value << std::endl;
+				if (tmp)
+				{
+					// std::cout << "11k = " << tmp->data._key << " v = " << tmp->data._value << std::endl;
+					_bst.remove(tmp->data);
+					return (1);
+				}
+				else
+					return (0);
+			}
+			void		erase(iterator first, iterator last)
+			{
+				while (first != last)
+				{
+					erase(*first);
+					first++;
+				}
+					
+			}
 			// swap
 			// clear
 			
@@ -123,6 +149,11 @@ namespace ft
 			// lower_bound
 			// upper_bound
 			// equal_range
+
+			void		print_all()
+			{
+				_bst.print_in_order();
+			}
 	};
 }; // ft
 
