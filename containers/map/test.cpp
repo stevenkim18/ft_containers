@@ -114,7 +114,7 @@ int main(void)
 
     print_ori_my_value("[100]", om[100], mm[100]);
 
-    twoline("insert");
+    twoline("insert with only value");
 
     print_all_element(om, mm);
 
@@ -130,7 +130,55 @@ int main(void)
 
     print_ori_my_value("pair iter first", oinsert.first->first, minsert.first->_key);
     print_ori_my_value("pair iter second", oinsert.first->second, minsert.first->_value);
+    std::cout << std::boolalpha;
+    print_ori_my_value("pair bool", oinsert.second, minsert.second);
 
+    oneline("insert already exist key in the map");
+
+    oinsert = om.insert(std::make_pair<int, std::string>(42, "eiq"));
+    minsert = mm.insert(ft::Pair<int, std::string>(42, "eiq"));
+
+    print_all_element(om, mm);
+
+    print_ori_my_value("pair iter first", oinsert.first->first, minsert.first->_key);
+    print_ori_my_value("pair iter second", oinsert.first->second, minsert.first->_value);
+    print_ori_my_value("pair bool", oinsert.second, minsert.second);
+
+    twoline("insert with iter and value");
+
+    oiterator oiter;
+    miterator miter;
+
+    oneline("insert no key in the map");
+
+    oiter = om.insert(om.begin(), std::make_pair<int, std::string>(24, "wfj"));
+    miter = mm.insert(mm.begin(), ft::Pair<int, std::string>(24, "wfj"));
+
+    print_all_element(om, mm);
+
+    print_ori_my_value("iter first", oiter->first, miter->_key);
+    print_ori_my_value("iter second", oiter->second, miter->_value);
+
+    oneline("insert already exist key in the map");
+
+    oiter = om.insert(om.begin(), std::make_pair<int, std::string>(1, "deq"));
+    miter = mm.insert(mm.begin(), ft::Pair<int, std::string>(1, "deq"));
+
+    print_ori_my_value("iter first", oiter->first, miter->_key);
+    print_ori_my_value("iter second", oiter->second, miter->_value);
+
+    twoline("insert multiple values");
+
+    typedef std::pair<int, std::string> opair;
+    typedef ft::Pair<int, std::string> mpair;
+
+    opair opairs[] = { opair(44, "daq"), opair(45, "vdd"), opair(46, "ebr") };
+    mpair mpairs[] = { mpair(44, "daq"), mpair(45, "vdd"), mpair(46, "ebr") };
+
+    om.insert(opairs, opairs + 3);
+    mm.insert(mpairs, mpairs + 3);
+
+    print_all_element(om, mm);
 
     // std::map<int, std::string>::iterator it;
 

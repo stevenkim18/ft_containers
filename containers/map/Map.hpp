@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/12 17:58:30 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/14 20:18:04 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,15 @@ namespace ft
 					return (iterator(tmp));
 				_bst.insert(val);
 				return (iterator(_bst.search(val)));
+			}
+			template <class InputIterator>
+  			void insert (InputIterator first, InputIterator last)
+			{
+				while (first != last)
+				{
+					insert(*first);
+					++first;
+				}
 			}
 			// erase
 			// swap
