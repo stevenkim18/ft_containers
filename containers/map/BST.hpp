@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 23:22:25 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/15 02:34:44 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/15 17:05:02 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,12 +219,13 @@ class BST
 			return (node);
 		}
 		void		delete_node(Bnode<T>* node)
-		{
+		{	
 			if (node)
 			{
 				delete_node(node->left);
-				delete_node(node->right);
 				delete node;
+				_size--;
+				delete_node(node->right);
 			}
 		}
 		
@@ -234,7 +235,7 @@ class BST
 		// 소멸자
 		~BST()
 		{
-			delete_node(_root);
+			remove_all();
 		}
 		size_t		get_size()	{ return (_size); }
 		void		insert(T data)
@@ -290,7 +291,7 @@ class BST
 			return (predecessor_node(search(data)));
 		}
 		void		remove(T data)
-		{
+		{	
 			Bnode<T>* tmp = search(data);
 			Bnode<T>* end_node = find_max();
 			// 이 경우는 마지막 노드를 삭제 할 때 필요!
@@ -306,6 +307,21 @@ class BST
 			}
 			else
 				_root = remove_node(_root, data);
+		}
+		void			remove_all()
+		{
+			if (_root)
+			{
+				Bnode<T>* end_node = find_max();
+				if (end_node->parent)
+				{
+					end_node->parent->right = nullptr;
+					end_node->parent = nullptr;
+					delete end_node;
+				}
+			}
+			delete_node(_root);
+			_root = nullptr;
 		}
 		size_t		get_size() const { return (_size); }
 };

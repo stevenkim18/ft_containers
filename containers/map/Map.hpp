@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/15 03:17:39 by seunkim          ###   ########.fr       */
+/*   Updated: 2020/12/15 17:52:28 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ namespace ft
 	class Map
 	{
 		public:
-			typedef Key						key_type;
-			typedef T						mapped_type;
-			typedef ft::Pair<Key, T> 		value_type;
-			typedef Compare					key_compare;
-			// value_compare
-			typedef Alloc					allocator_type;
-			typedef value_type&				reference;
-			typedef const value_type&		const_reference;
-			typedef value_type*				pointer;
-			typedef const value_type*		const_pointer;
-			typedef ft::MapIterator<Key, T>	iterator;
+			typedef Key								key_type;
+			typedef T								mapped_type;
+			typedef ft::Pair<Key, T> 				value_type;
+			typedef Compare							key_compare;
+			// value_compare						1
+			typedef Alloc							allocator_type;
+			typedef value_type&						reference;
+			typedef const value_type&				const_reference;
+			typedef value_type*						pointer;
+			typedef const value_type*				const_pointer;
+			typedef ft::MapIterator<Key, T>			iterator;
 			// typedef							const_iterator;
 			// typedef							reverse_iterator;
 			// typedef							const_reverse_iterator;
@@ -137,28 +137,31 @@ namespace ft
 				}
 			}
 			// swap
-			// void		swap(Map &x)
-			// {
-			// 	print_all();
-			// 	Map<Key, T> tmp;
-			// 	tmp.insert(begin(), end());
-			// 	std::cout << "tmp=";
-			// 	tmp.print_all();
-			// 	clear();
-			// 	insert(x.begin(), x.end());
-			// 	std::cout << "x=";
-			// 	x.print_all();
-			// 	x.clear();
-			// 	tmp.insert(begin(), end());
+			void		swap(Map &x)
+			{
+				Map<Key, T> tmp;
+				tmp.insert(begin(), end());
 				
-			// }
+				// std::cout << "tmp";
+				// tmp.print_all();
+
+				clear();
+				insert(x.begin(), x.end());
+				// print_all();
+				
+				x.clear();
+				x.insert(tmp.begin(), tmp.end());
+				// std::cout << "x";
+				// x.print_all();
+			}
 			// clear
 			void		clear()
 			{
-				erase(begin(), end());
+				_bst.remove_all();
 			}
 			
 			// key_comp
+			key_compare	key_comp() const { return (_comp); }
 			// value_comp
 			
 			// find

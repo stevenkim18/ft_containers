@@ -245,24 +245,52 @@ int main(void)
     mm.erase(miter, --mm.end());
 
     print_all_element(om, mm);
+    //mm.print_all();
 
     twoline("swap");
 
     std::map<int, std::string> om2;
     ft::Map<int, std::string> mm2;
 
-    om.insert(std::make_pair<int, std::string>(100, "wer"));     mm.insert(ft::Pair<int, std::string>(100, "wer")); 
-    om.insert(std::make_pair<int, std::string>(200, "xvv"));      mm.insert(ft::Pair<int, std::string>(200, "xvv"));  
+    om2.insert(std::make_pair<int, std::string>(100, "wer"));  mm2.insert(ft::Pair<int, std::string>(100, "wer")); 
+    om2.insert(std::make_pair<int, std::string>(200, "xvv"));   mm2.insert(ft::Pair<int, std::string>(200, "xvv"));  
 
-    om.swap(om2);
-    mm.swap(mm2);
+    std::map<int, std::string> om3;
+    ft::Map<int, std::string> mm3;
 
-    oneline("original map");
-    print_all_element(om, mm);
+    om3.insert(std::make_pair<int, std::string>(1, "fda"));   mm3.insert(ft::Pair<int, std::string>(1, "fda")); 
+    om3.insert(std::make_pair<int, std::string>(2, "sad"));   mm3.insert(ft::Pair<int, std::string>(2, "sad"));  
 
-    oneline("new map(swaped map");
+    om2.swap(om3);
+    mm2.swap(mm3);
+
+    oneline("original map2");
     print_all_element(om2, mm2);
 
+    oneline("new map3(swaped map)");
+    print_all_element(om3, mm3);
+
+    twoline("clear");
+    om.clear();
+    mm.clear();
+
+    oneline("clear and insert one node");   
+    om.insert(std::make_pair<int, std::string>(1, "vvs"));     mm.insert(ft::Pair<int, std::string>(1, "vvs")); 
+
+    print_all_element(om, mm);
+    
+    twoline("key_compare");
+
+    std::map<int, std::string>::key_compare okc = om.key_comp();
+    ft::Map<int, std::string>::key_compare mkc = mm.key_comp();
+
+    oneline("compare by key(int)");
+    print_ori_my_value("3,5", okc(3, 5), mkc(3, 5));
+    print_ori_my_value("3,2", okc(3, 2), mkc(3, 2));
+
+    twoline("value_compare");
+
+    
     // std::map<int, std::string>::iterator it;
 
     // it = om.insert(om.begin(), std::make_pair<int, std::string>(99, "sadf"));
@@ -291,5 +319,5 @@ int main(void)
     // ft::Map<int, std::string>::iterator oit2 = mm.end();
 
     // std::cout << (oit == oit2) << std::endl;
-
+    
 }
