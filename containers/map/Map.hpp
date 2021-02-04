@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2020/12/15 17:52:28 by seunkim          ###   ########.fr       */
+/*   Updated: 2021/02/05 04:00:15 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,31 @@ namespace ft
 			typedef T								mapped_type;
 			typedef ft::Pair<Key, T> 				value_type;
 			typedef Compare							key_compare;
-			// value_compare						1
 			typedef Alloc							allocator_type;
 			typedef value_type&						reference;
 			typedef const value_type&				const_reference;
 			typedef value_type*						pointer;
 			typedef const value_type*				const_pointer;
 			typedef ft::MapIterator<Key, T>			iterator;
-			// typedef							const_iterator;
-			// typedef							reverse_iterator;
-			// typedef							const_reverse_iterator;
-			typedef	size_t					size_type;
+			typedef	ft::ConstMapIterator<Key, T>	const_iterator;
+			typedef ft::ReverseMapIterator<Key, T>	reverse_iterator;
+			typedef	ft::ConstReverseMapIterator<Key, T>	const_reverse_iterator;
+			typedef	size_t							size_type;
+			class value_compare
+			{
+				friend class map;
+				protected:
+					Compare comp;
+					value_compare (Compare c) : comp(c) {};
+				public:
+					typedef bool result_type;
+					typedef value_type first_argument_type;
+					typedef value_type second_argument_type;
+					bool operator() (const value_type& x, const value_type& y) const
+					{
+						return comp(x.first, y.first);
+					};
+			};
 
 		private:
 			typedef	Bnode<value_type>*		Node;
@@ -52,14 +66,30 @@ namespace ft
 		public:
 			explicit Map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
 				: _allocator(alloc), _comp(comp) {}
-			// range constructor
-			// copy constructor
+			template <class InputIterator>
+			Map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+				: _allocator(alloc), _comp(comp) 
+			{
+				insert(first, last);
+			}
+			Map (const Map& x)
+			{
+				*this = x;
+			}
 			~Map() {}
 			// operator=
+			Map &operator=(const Map &ref)
+			{
+				clear();
+				insert(ref.begin(), ref.end());
+				return (*this);
+			}
 			// begin
 			iterator		begin()	{ return (iterator(_bst.find_min())); }
+			const_iterator	begin() const { return (const_iterator(_bst.find_min())); }
 			// end
 			iterator		end() { return (iterator(_bst.find_max())); }
+			const_iterator	end() const { return (const_iterator(_bst.find_max())); }
 			// rbegin
 			// rend
 			
@@ -161,13 +191,40 @@ namespace ft
 			}
 			
 			// key_comp
-			key_compare	key_comp() const { return (_comp); }
+			key_compare		key_comp() const { return (_comp); }
 			// value_comp
+			value_compare	value_comp() const { return (this->value_compare); }
 			
 			// find
-			// iterator		find(const key_type& k)
+			iterator		find(const key_type& k)
+			{
+				if (empty())
+					return (end());
+				Node tmp = _bst.search(k);
+				if (tmp)
+					return (iterator(tmp));
+				return (end());
+			}
+
+			const_iterator	find(const key_type& k) const
+			{
+				if (empty())
+					return (end());
+				Node tmp = _bst.search(k);
+				if (tmp)
+					return (const_iterator(tmp));
+				return (end());
+			}
 
 			// count 0 or 1
+			size_type count(const key_type& k)
+			{
+				if (find(k) != end())
+					return (1);
+				else
+					return (0);
+					
+			}
 			// lower_bound
 			// upper_bound
 			// equal_range

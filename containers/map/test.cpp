@@ -290,7 +290,46 @@ int main(void)
 
     twoline("value_compare");
 
+    // std::map<int, std::string>::value_compare ovc = om.value_comp();
+    // ft::Map<int, std::string>::value_compare mvc = mm.value_comp();
+
+    // (void)ovc;
+    // (void)mvc;
     
+    twoline("find");
+
+    om.insert(std::make_pair<int, std::string>(20, "asd"));     mm.insert(ft::Pair<int, std::string>(20, "asd")); 
+    om.insert(std::make_pair<int, std::string>(3, "fghn"));     mm.insert(ft::Pair<int, std::string>(3, "fghn")); 
+    om.insert(std::make_pair<int, std::string>(17, "vrv"));     mm.insert(ft::Pair<int, std::string>(17, "vrv")); 
+    om.insert(std::make_pair<int, std::string>(15, "twer"));    mm.insert(ft::Pair<int, std::string>(15, "twer"));
+    om.insert(std::make_pair<int, std::string>(13, "xcvb"));    mm.insert(ft::Pair<int, std::string>(13, "xcvb"));
+    om.insert(std::make_pair<int, std::string>(2, "uyj"));      mm.insert(ft::Pair<int, std::string>(2, "uyj"));  
+    om.insert(std::make_pair<int, std::string>(10, "wer"));     mm.insert(ft::Pair<int, std::string>(10, "wer")); 
+    om.insert(std::make_pair<int, std::string>(8, "xvv"));      mm.insert(ft::Pair<int, std::string>(8, "xvv"));  
+    om.insert(std::make_pair<int, std::string>(19, "qwer"));    mm.insert(ft::Pair<int, std::string>(19, "qwer"));
+    om.insert(std::make_pair<int, std::string>(4, "dfg"));      mm.insert(ft::Pair<int, std::string>(4, "dfg"));  
+    om.insert(std::make_pair<int, std::string>(8, "qwer"));     mm.insert(ft::Pair<int, std::string>(8, "qwer")); 
+    om.insert(std::make_pair<int, std::string>(5, "zdf"));      mm.insert(ft::Pair<int, std::string>(5, "zdf"));  
+
+    print_all_element(om, mm);
+
+    oneline("find key in the map");
+    
+    print_ori_my_value("find 10", om.find(10)->second, mm.find(10)->_value);
+    print_ori_my_value("find 1", om.find(1)->second, mm.find(1)->_value);
+    print_ori_my_value("find 20", om.find(20)->second, mm.find(20)->_value);
+
+    oneline("find no key in the map");
+    print_ori_my_value("find 100", om.find(100)->first, mm.find(100)->_key);
+    print_ori_my_value("find 100", om.find(100)->second, mm.find(100)->_value);
+
+    twoline("count");
+
+    print_ori_my_value("count 1", om.count(1), mm.count(1));
+    print_ori_my_value("count 2", om.count(2), mm.count(2));
+    print_ori_my_value("count 3", om.count(3), mm.count(3));
+    print_ori_my_value("count 21", om.count(21), mm.count(21));
+
     // std::map<int, std::string>::iterator it;
 
     // it = om.insert(om.begin(), std::make_pair<int, std::string>(99, "sadf"));
