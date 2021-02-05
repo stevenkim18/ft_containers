@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2021/02/05 22:53:10 by seunkim          ###   ########.fr       */
+/*   Updated: 2021/02/06 04:24:03 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,10 +166,7 @@ namespace ft
 			void		erase(iterator first, iterator last)
 			{
 				while (first != last)
-				{
-					erase(first);
-					first++;
-				}
+					erase(first++);
 			}
 			// swap
 			void		swap(Map &x)

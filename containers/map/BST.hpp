@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 23:22:25 by seunkim           #+#    #+#             */
-/*   Updated: 2021/02/05 03:47:11 by seunkim          ###   ########.fr       */
+/*   Updated: 2021/02/06 04:24:25 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,10 +204,11 @@ class BST
 				// 자식이 둘다 있을 때
 				else
 				{
+					// successor --> predecessor 바꿔주니까 됬음..
 					// successor or predecessor
-					Bnode<T>*	successor = successor_node(node);
+					Bnode<T>*	successor = predecessor_node(node);
 					node->data = successor->data;
-					node->right = remove_node(node->right, successor->data);
+					node->left = remove_node(node->left, successor->data);
 				}
 			}
 			// 삭제 값이 더 클때 -> 오른쪽

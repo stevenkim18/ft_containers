@@ -161,8 +161,8 @@ int main(void)
 
 	oneline("reserve to 20");
 
-	ol.reserve(20);
-	ml.reserve(20);
+	ol.reserve(10);
+	ml.reserve(10);
 
 	print_origin_my_fun("cap", ol.capacity(), ml.capacity());
 
@@ -184,7 +184,7 @@ int main(void)
 
 	oneline("print over index");
 
-	print_origin_my_fun("[30]", ol[30], ml[30]);
+	print_origin_my_fun("[11]", ol[11], ml[11]);
 
 	twoline("at");
 

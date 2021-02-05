@@ -119,6 +119,7 @@ int main(void)
     om.insert(std::make_pair<int, std::string>(16, "uti"));     mm.insert(ft::Pair<int, std::string>(16, "uti")); 
 
     print_all_element(om, mm);
+    mm.print_all();
 
     oneline("key in the map");
 
@@ -140,6 +141,7 @@ int main(void)
     twoline("insert with only value");
 
     print_all_element(om, mm);
+    mm.print_all();
 
     std::pair<oiterator, bool> oinsert;
     std::pair<miterator, bool> minsert;
@@ -250,25 +252,15 @@ int main(void)
     print_ori_my_value("erase 37", om.erase(37), mm.erase(37));
 
     print_all_element(om, mm);
-    mm.print_all();
 
     twoline("erase with two iterators");
 
-    oiter = om.end();
-    miter = mm.end();
+    oneline("erase begin+1 to end-1");
 
-    oiter--; oiter--; oiter--; oiter--;
-    miter--; miter--; miter--; miter--;
-
-    print_ori_my_value("iter", oiter->first, miter->_key);
-
-    oneline("erase 24 to 45");
-
-    om.erase(oiter, --om.end());
-    mm.erase(miter, --mm.end());
+    om.erase(++om.begin(), --om.end());
+    mm.erase(++mm.begin(), --mm.end());
 
     print_all_element(om, mm);
-    //mm.print_all();
 
     twoline("swap");
 

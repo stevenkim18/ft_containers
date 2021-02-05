@@ -80,4 +80,6 @@ int main(void)
 
 	oqu.pop();
 	mqu.pop();
+	
+	print_origin_my_fun("size", oqu.size(), mqu.size());
 }
