@@ -71,6 +71,29 @@ int main(void)
     print_ori_my_value("size", om.size(), mm.size());
     print_ori_my_value("empty", om.empty(), mm.empty());
 
+    twoline("constructor");
+
+    oneline("insert 2 node in om, mm");
+
+    om.insert(std::make_pair<int, std::string>(30, "zxc"));     mm.insert(ft::Pair<int, std::string>(30, "zxc")); 
+    om.insert(std::make_pair<int, std::string>(35, "gfg"));     mm.insert(ft::Pair<int, std::string>(35, "gfg")); 
+
+    print_all_element(om, mm);
+
+    oneline("range constructor");
+
+    std::map<int, std::string> om42(om.begin(), om.end());
+    ft::Map<int, std::string> mm42(mm.begin(), mm.end());
+
+    print_all_element(om42, mm42);
+
+    oneline("copy constructor");
+
+    std::map<int, std::string> om44(om);
+    ft::Map<int, std::string> mm44(mm);
+
+    print_all_element(om44, mm44);
+
     twoline("max_size");
 
     print_ori_my_value("max_size", om.max_size(), mm.max_size());

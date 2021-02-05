@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2021/02/05 22:35:29 by seunkim          ###   ########.fr       */
+/*   Updated: 2021/02/05 22:53:10 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ namespace ft
 			{
 				insert(first, last);
 			}
-			Map (const Map& x)
+			Map (Map& x)
 			{
 				*this = x;
 			}
 			~Map() {}
 			// operator=
-			Map &operator=(const Map &ref)
+			Map &operator= (Map &ref)
 			{
 				clear();
 				insert(ref.begin(), ref.end());
