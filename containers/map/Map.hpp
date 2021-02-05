@@ -6,7 +6,7 @@
 /*   By: seunkim <seunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 19:09:48 by seunkim           #+#    #+#             */
-/*   Updated: 2021/02/05 04:00:15 by seunkim          ###   ########.fr       */
+/*   Updated: 2021/02/05 22:35:29 by seunkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ namespace ft
 			typedef	size_t							size_type;
 			class value_compare
 			{
-				friend class map;
+				friend class Map;
 				protected:
 					Compare comp;
 					value_compare (Compare c) : comp(c) {};
@@ -52,7 +52,7 @@ namespace ft
 					typedef value_type second_argument_type;
 					bool operator() (const value_type& x, const value_type& y) const
 					{
-						return comp(x.first, y.first);
+						return comp(x._key, y._key);
 					};
 			};
 
@@ -62,10 +62,11 @@ namespace ft
 			BST<ft::Pair<Key, T> >			_bst;
 			allocator_type					_allocator;
 			key_compare						_comp;
+			// value_compare					_value_compare;
 
 		public:
 			explicit Map (const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
-				: _allocator(alloc), _comp(comp) {}
+				: _allocator(alloc), _comp(comp)  {}
 			template <class InputIterator>
 			Map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
 				: _allocator(alloc), _comp(comp) 
@@ -91,7 +92,11 @@ namespace ft
 			iterator		end() { return (iterator(_bst.find_max())); }
 			const_iterator	end() const { return (const_iterator(_bst.find_max())); }
 			// rbegin
+			reverse_iterator        rbegin() { return (--reverse_iterator(_bst.find_max())); }
+			const_reverse_iterator  rbegin() const { return (--reverse_iterator(_bst.find_max())); }
 			// rend
+			reverse_iterator		rend() { return (reverse_iterator(_bst.find_min())); }
+			const_reverse_iterator	rend() const { return (--reverse_iterator(_bst.find_min())); }
 			
 			// empty
 			bool empty() const { return (_bst.get_size() == 0); }
@@ -193,7 +198,7 @@ namespace ft
 			// key_comp
 			key_compare		key_comp() const { return (_comp); }
 			// value_comp
-			value_compare	value_comp() const { return (this->value_compare); }
+			value_compare	value_comp() const { return (value_compare(_comp)); }
 			
 			// find
 			iterator		find(const key_type& k)
@@ -226,8 +231,58 @@ namespace ft
 					
 			}
 			// lower_bound
+			iterator		lower_bound(const key_type& k)
+			{
+				iterator it = begin();
+				for (; it != end(); it++)
+				{
+					if (k <= it->_key)
+						break;
+				}
+				return (it);
+			}
+
+			const_iterator	lower_bound(const key_type& k) const
+			{
+				const_iterator it = begin();
+				for (; it != end(); it++)
+				{
+					if (k <= it->_key)
+						break;
+				}
+				return (it);
+			}
 			// upper_bound
+			iterator		upper_bound(const key_type& k)
+			{
+				iterator it = begin();
+				for (;it != end(); it++)
+				{
+					if (k < it->_key)
+						break;
+				}
+				return (it);
+			}
+			const_iterator	upper_bound(const key_type& k) const
+			{
+				const_iterator it = begin();
+				for (; it != end(); it++)
+				{
+					if (k < it->_key)
+						break;
+				}
+				return (it);
+			}
 			// equal_range
+			ft::Pair<const_iterator, const_iterator>	equal_range(const key_type& k) const
+			{
+				return (ft::Pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));
+			}
+
+			ft::Pair<iterator, iterator>	equal_range(const key_type& k)
+			{
+				return (ft::Pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
+			}
 
 			void		print_all()
 			{

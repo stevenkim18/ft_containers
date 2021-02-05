@@ -290,26 +290,26 @@ int main(void)
 
     twoline("value_compare");
 
-    // std::map<int, std::string>::value_compare ovc = om.value_comp();
-    // ft::Map<int, std::string>::value_compare mvc = mm.value_comp();
-
-    // (void)ovc;
-    // (void)mvc;
-    
-    twoline("find");
-
-    om.insert(std::make_pair<int, std::string>(20, "asd"));     mm.insert(ft::Pair<int, std::string>(20, "asd")); 
+    om.insert(std::make_pair<int, std::string>(20, "aaa"));     mm.insert(ft::Pair<int, std::string>(20, "aaa")); 
     om.insert(std::make_pair<int, std::string>(3, "fghn"));     mm.insert(ft::Pair<int, std::string>(3, "fghn")); 
     om.insert(std::make_pair<int, std::string>(17, "vrv"));     mm.insert(ft::Pair<int, std::string>(17, "vrv")); 
     om.insert(std::make_pair<int, std::string>(15, "twer"));    mm.insert(ft::Pair<int, std::string>(15, "twer"));
     om.insert(std::make_pair<int, std::string>(13, "xcvb"));    mm.insert(ft::Pair<int, std::string>(13, "xcvb"));
-    om.insert(std::make_pair<int, std::string>(2, "uyj"));      mm.insert(ft::Pair<int, std::string>(2, "uyj"));  
+    om.insert(std::make_pair<int, std::string>(2, "zzz"));      mm.insert(ft::Pair<int, std::string>(2, "zzz"));  
     om.insert(std::make_pair<int, std::string>(10, "wer"));     mm.insert(ft::Pair<int, std::string>(10, "wer")); 
     om.insert(std::make_pair<int, std::string>(8, "xvv"));      mm.insert(ft::Pair<int, std::string>(8, "xvv"));  
     om.insert(std::make_pair<int, std::string>(19, "qwer"));    mm.insert(ft::Pair<int, std::string>(19, "qwer"));
     om.insert(std::make_pair<int, std::string>(4, "dfg"));      mm.insert(ft::Pair<int, std::string>(4, "dfg"));  
     om.insert(std::make_pair<int, std::string>(8, "qwer"));     mm.insert(ft::Pair<int, std::string>(8, "qwer")); 
     om.insert(std::make_pair<int, std::string>(5, "zdf"));      mm.insert(ft::Pair<int, std::string>(5, "zdf"));  
+
+    std::map<int, std::string>::value_compare ovc = om.value_comp();
+    ft::Map<int, std::string>::value_compare mvc = mm.value_comp();
+
+    print_ori_my_value("compare begin and begin + 1", ovc(*om.begin(), *(++om.begin())), mvc(*mm.begin(), *(++mm.begin()))); 
+    print_ori_my_value("compare begin and end", ovc(*om.begin(), *(--om.end())), mvc(*mm.begin(), *(--mm.end())));    
+    
+    twoline("find");
 
     print_all_element(om, mm);
 
@@ -330,6 +330,32 @@ int main(void)
     print_ori_my_value("count 3", om.count(3), mm.count(3));
     print_ori_my_value("count 21", om.count(21), mm.count(21));
 
+    twoline("lower_bound");
+
+    print_ori_my_value("lower 3", om.lower_bound(3)->first, mm.lower_bound(3)->_key);
+    print_ori_my_value("lower 4", om.lower_bound(4)->first, mm.lower_bound(4)->_key);
+    print_ori_my_value("lower 5", om.lower_bound(5)->first, mm.lower_bound(5)->_key);
+    print_ori_my_value("lower 6", om.lower_bound(6)->first, mm.lower_bound(6)->_key);
+    print_ori_my_value("lower 7", om.lower_bound(7)->first, mm.lower_bound(7)->_key);
+
+    twoline("upper_bound");
+
+    print_ori_my_value("upper 10", om.upper_bound(10)->first, mm.upper_bound(10)->_key);
+    print_ori_my_value("upper 11", om.upper_bound(11)->first, mm.upper_bound(11)->_key);
+    print_ori_my_value("upper 12", om.upper_bound(12)->first, mm.upper_bound(12)->_key);
+    print_ori_my_value("upper 18", om.upper_bound(18)->first, mm.upper_bound(18)->_key);
+    print_ori_my_value("upper 19", om.upper_bound(19)->first, mm.upper_bound(19)->_key);
+
+
+    twoline("equal_range");
+    
+    print_ori_my_value("equal_range 1 first", om.equal_range(1).first->first, mm.equal_range(1)._key->_key);
+    print_ori_my_value("equal_range 1 second", om.equal_range(1).second->first, mm.equal_range(1)._value->_key);
+
+    print_ori_my_value("equal_range 100 first", om.equal_range(100).first->first, mm.equal_range(100)._key->_key);
+    print_ori_my_value("equal_range 100 second", om.equal_range(100).second->first, mm.equal_range(100)._value->_key);
+    
+    
     // std::map<int, std::string>::iterator it;
 
     // it = om.insert(om.begin(), std::make_pair<int, std::string>(99, "sadf"));
